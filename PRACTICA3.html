@@ -136,6 +136,9 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <li>
 <a href="#61">Problema 5</a>
 </li>
+<li>
+<a href="#62">Problema 6</a>
+</li>
 </ul>
 </div>
 <h2 id="1">Integrantes</h2>
@@ -317,9 +320,6 @@ E_g =
 <p>Se obtiene una aproximaci&oacute;n ligeramente mejor con la funci&oacute;n quad.</p>
 <pre class="codeinput">E_g = quad(g_squared,0,100)
 E_g = 0.2562
-<span class="comment">%</span>
-<span class="comment">%</span>
-<span class="comment">%</span>
 </pre>
 <pre class="codeoutput">
 E_g =
@@ -426,6 +426,18 @@ title(<span class="string">'Grafica impar de la funcion'</span>);
 <h2 id="60">Problema 4</h2>
 <p>Se Muestra en la Introduccion de la practica.</p>
 <h2 id="61">Problema 5</h2>
+<p>No realizado</p>
+<h2 id="62">Problema 6</h2>
+<p>El resultado de esta aplicacion se puede observar en la siguiente imagen, en la cual se ense&ntilde;a como al darle una funcion "t", la grafica y selecciona los intervalos dados, en este caso entre -5 y 2. Donde se puede mostrar que corta a la funcion justo en esos valores de t</p>
+<p>
+<img vspace="5" hspace="5" src="Problema_6.png" alt=""> </p>
+<p>Primeramente para explicar, las lineas de codigo tenemos que mostrar los componentes que utilizamos, en primer lugar usamos Axes (Para graficar), Edit Field text(Para ingresar las funciones), Edit Field Numerico (Para ingresar los limites de la funcion y variaciones max y min), Push Button (Para que inicie el proceso de graficacion), Area Text (mostrar raices).</p>
+<p>
+<img vspace="5" hspace="5" src="Problema_6_b.png" alt=""> </p>
+<p>Desenglozando el codigo vamos al apartado de callbacks del push button para que todo gire en torno al presionarlo. Primero vamos a leer los caracteres que tiene la funcion que ingresa el usuario, especificamente los valores de cada uno. Despues tenemos que convertir esa funcion en una variable simbolica, llamando a las funciones que nos proporciona MATLAB. Al final describimos la variable simbolica en un vector, despues calulamos las raices del polinomio Y ese valor de las raices las enviamos al area de texto (esto sirve para identificar partes reales de imaginarias). Siguiendo tenemos que programar la seccion para establecer limites de maximos y minimos en valores de x &amp; y para poder tener un campo especifico de la funcion, tomados en intervalos. Asi mismo, damos en el intervalo de integracion de 100 puntos, para que en la grafica se vea fluida la funcion ya graficada. Para graficar haremos uso de la funcion plot, donde se debe especificar que se dibuja en el panel de la grafica. Despues colocamos dos if's en el cual se define los valores de los ejes en x&amp;y, recordando que se reciben valores infinitos, y con ayuda del if, se calcularan automaticamente, con ayuda de los valores maximos de t y l.</p>
+<p>
+<img vspace="5" hspace="5" src="Problema_6_a.png" alt=""> </p>
+<p>De esta manera se intento recrear una app para poder manipular las funciones proporcionadas por el usuario, entre intervalos dados por los ususarios.</p>
 <p class="footer">
 <br>
 <a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
@@ -666,9 +678,6 @@ E_g = 0.2567
 % Se obtiene una aproximación ligeramente mejor con la función quad.
 E_g = quad(g_squared,0,100)
 E_g = 0.2562
-%
-%
-%
 %% Problema 2
 % Para la señal x(t) ilustrada en la figura P1.2-2, bosqueje:
 %%
@@ -784,9 +793,51 @@ title('Grafica impar de la funcion');
 %% Problema 4
 % Se Muestra en la Introduccion de la practica.
 %% Problema 5
+% No realizado
+%% Problema 6
+% El resultado de esta aplicacion se puede observar en la siguiente imagen,
+% en la cual se enseña como al darle una funcion "t", la grafica y
+% selecciona los intervalos dados, en este caso entre -5 y 2.
+% Donde se puede mostrar que corta a la funcion justo en esos valores de t
 % 
+% <<Problema_6.png>>
 %%
-
+% Primeramente para explicar, las lineas de codigo tenemos que mostrar los
+% componentes que utilizamos, en primer lugar usamos Axes (Para graficar),
+% Edit Field text(Para ingresar las funciones), Edit Field Numerico (Para
+% ingresar los limites de la funcion y variaciones max y min), Push Button
+% (Para que inicie el proceso de graficacion), Area Text (mostrar raices).
+% 
+% 
+% <<Problema_6_b.png>>
+% 
+%% 
+% Desenglozando el codigo vamos al apartado de callbacks del push button
+% para que todo gire en torno al presionarlo.
+% Primero vamos a leer los caracteres que tiene la funcion que ingresa el
+% usuario, especificamente los valores de cada uno.
+% Despues tenemos que convertir esa funcion en una variable simbolica,
+% llamando a las funciones que nos proporciona MATLAB.
+% Al final describimos la variable simbolica en un vector, despues
+% calulamos las raices del polinomio
+% Y ese valor de las raices las enviamos al area de texto (esto sirve para
+% identificar partes reales de imaginarias).
+% Siguiendo tenemos que programar la seccion para establecer limites de
+% maximos y minimos en valores de x & y para poder tener un campo
+% especifico de la funcion, tomados en intervalos. Asi mismo, damos en el
+% intervalo de integracion de 100 puntos, para que en la grafica se vea
+% fluida la funcion ya graficada.
+% Para graficar haremos uso de la funcion plot, donde se debe especificar
+% que se dibuja en el panel de la grafica.
+% Despues colocamos dos if's en el cual se define los valores de los ejes
+% en x&y, recordando que se reciben valores infinitos, y con ayuda del if,
+% se calcularan automaticamente, con ayuda de los valores maximos de t y l.
+%
+% <<Problema_6_a.png>>
+%%
+% De esta manera se intento recrear una app para poder manipular las
+% funciones proporcionadas por el usuario, entre intervalos dados por los
+% ususarios.
 ##### SOURCE END #####
 -->
 </body>

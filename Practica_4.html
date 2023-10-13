@@ -1,0 +1,376 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>ASyS Practica 4: Se&ntilde;ales en tiempo discreto</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2023-10-13">
+<meta name="DC.source" content="Practica_4.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>ASyS Practica 4: Se&ntilde;ales en tiempo discreto</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Integrantes</a>
+</li>
+<li>
+<a href="#2">Objetivos de la Practica:</a>
+</li>
+<li>
+<a href="#3">Introduccion</a>
+</li>
+<li>
+<a href="#7">Problema 1</a>
+</li>
+<li>
+<a href="#10">Problema 3</a>
+</li>
+<li>
+<a href="#11">Energia</a>
+</li>
+<li>
+<a href="#12">Potencia</a>
+</li>
+<li>
+<a href="#13">Problema 4</a>
+</li>
+<li>
+<a href="#14">A)</a>
+</li>
+<li>
+<a href="#15">B)</a>
+</li>
+<li>
+<a href="#16">C)</a>
+</li>
+<li>
+<a href="#17">D)</a>
+</li>
+<li>
+<a href="#18">Problema 5</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Integrantes</h2>
+<div>
+<ul>
+<li>Dorantes Ochoa Daniel</li>
+<li>Ruiz Guadarrama Juan Carlos</li>
+<li>Santos Garrido Diana Karen</li>
+</ul>
+</div>
+<h2 id="2">Objetivos de la Practica:</h2>
+<div>
+<ul>
+<li>Manipulaci&oacute;n b&aacute;sica de MATLAB</li>
+<li>Gr&aacute;ficas de se&ntilde;ales reales y complejas discretas</li>
+<li>Transformaci&oacute;n de se&ntilde;ales discretas (escalamientos y traslaciones)</li>
+</ul>
+</div>
+<h2 id="3">Introduccion</h2>
+<p>El equipo investigo como se grafica con Phyton y como evidencia se realizo el Problema 1 A lo que el resultado nos dio:</p>
+<p>
+<img vspace="5" hspace="5" src="Problema_1.png" alt=""> </p>
+<p>
+<img vspace="5" hspace="5" src="Problema_1_1.jpeg" alt=""> </p>
+<p>El codigo con el que se genero la grafica pues consultarse en este <a href="https://colab.research.google.com/drive/1Pqpn7fL48zKRTyyITcP_pIhH6WWOcIDe?usp=sharing">enlace</a>
+</p>
+<h2 id="7">Problema 1</h2>
+<pre class="codeinput"> f = @(n) exp(-floor(n)/5) .* cos(pi*floor(n)/5) .* (floor(n) &gt;= 0);
+n = -10:10;
+f_n_2 = f(n/2);
+figure;
+</pre>
+<img vspace="5" hspace="5" src="Practica_4_01.png" alt=""> <img vspace="5" hspace="5" src="Practica_4_02.png" alt=""> <p>Considere la funci&oacute;n de tiempo discreto f[n]=e&minus;n/5 cos(πn/5)u[n]. La secci&oacute;n 3.11 utiliza funciones an&oacute;nimas para describir se&ntilde;ales DT. f = @(n) exp(-n/5).*cos(pi*n/5).*(n&gt;=0); Si bien esta funci&oacute;n an&oacute;nima funciona correctamente para una operaci&oacute;n de reducci&oacute;n de resoluci&oacute;n como f[2n], no funciona correctamente durante un operaci&oacute;n de muestreo superior, como f[n/2]. Modifique la funci&oacute;n an&oacute;nima f para que tambi&eacute;n Se adapta correctamente a las operaciones de sobremuestreo. Pruebe su c&oacute;digo computando y trazando f(n/2) sobre (&minus;10 &le; n &le; 10).</p>
+<pre class="codeinput">stem(n, f_n_2, <span class="string">'o'</span>,<span class="string">'filled'</span>);
+title(<span class="string">'f[n/2] con Sobremuestreo'</span>);
+xlabel(<span class="string">'n'</span>);
+ylabel(<span class="string">'f[n/2]'</span>);
+grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="Practica_4_03.png" alt=""> <h2 id="10">Problema 3</h2>
+<p>Supongamos que existe un vector x en MATLAB espacio de trabajo, correspondiente a una duraci&oacute;n finita Se&ntilde;al DT x[n] * (a) Escriba una funci&oacute;n de MATLAB que, cuando pasa el vector x, calcula y devuelve Ex, la energ&iacute;a de x[n]. * (b) Escriba una funci&oacute;n de MATLAB que, cuando pasa el vector x, calcula y devuelve Px, la potencia de x[n]. Supongamos que x[n] es peri&oacute;dico y ese vector x contiene datos para un n&uacute;mero entero de per&iacute;odos de x[n].</p>
+<h2 id="11">Energia</h2>
+<pre class="codeinput">x = @(n) (heaviside(n));
+n = -2:8;
+figure
+stem(n,x(n));
+
+n = 0:5;
+E = sum(x(n).^2)
+</pre>
+<pre class="codeoutput">
+E =
+
+     5
+
+</pre>
+<img vspace="5" hspace="5" src="Practica_4_04.png" alt=""> <h2 id="12">Potencia</h2>
+<pre class="codeinput">syms <span class="string">N</span>;
+x = @(n) (heaviside(n));
+
+n = -3:3;
+figure
+stem(n,x(n));
+
+limit(((1/2*N)+1)*(sum(x(n).^2)),N,inf);
+</pre>
+<img vspace="5" hspace="5" src="Practica_4_05.png" alt=""> <h2 id="13">Problema 4</h2>
+<p>3.1-1 Encuentre la energ&iacute;a de las se&ntilde;ales representadas en Figura P3.1-1.</p>
+<h2 id="14">A)</h2>
+<pre class="codeinput">x = @(n) ((-n).*heaviside(-n).*(heaviside(-n)));
+x2= @(n) ((n).*heaviside(n));
+x3= @(n) (heaviside(n));
+n = -8:8;
+figure
+stem(n,x2(n+3).*x3(-n)+x(n-3).*x3(n+1));
+n=-3:3;
+E = sum(x(n).^2)
+</pre>
+<pre class="codeoutput">
+E =
+
+    14
+
+</pre>
+<img vspace="5" hspace="5" src="Practica_4_06.png" alt=""> <h2 id="15">B)</h2>
+<pre class="codeinput">x = @(n) ((-n).*heaviside(-n).*(heaviside(-n)));
+x2= @(n) ((n).*heaviside(n));
+x3= @(n) (heaviside(n));
+n = -8:8;
+figure
+stem(n,x(n-6).*x3(n-2)+x2(n).*x3(-n+3));
+n=-3:3;
+E = sum(x(n).^2)
+</pre>
+<pre class="codeoutput">
+E =
+
+    14
+
+</pre>
+<img vspace="5" hspace="5" src="Practica_4_07.png" alt=""> <h2 id="16">C)</h2>
+<pre class="codeinput">x = @(n) ((3*n).*heaviside(n)+(3*n).*heaviside(-n));
+n = -3:3;
+figure
+stem(n,x(n));
+n=-3:3;
+E = sum(x(n).^2)
+</pre>
+<pre class="codeoutput">
+E =
+
+   252
+
+</pre>
+<img vspace="5" hspace="5" src="Practica_4_08.png" alt=""> <h2 id="17">D)</h2>
+<pre class="codeinput">x = @(n) ((2*n).*heaviside(n)+(-2*n).*heaviside(-n));
+n = -2:2;
+figure
+stem(n,x(n));
+n=-2:2;
+E = sum(x(n).^2);
+</pre>
+<img vspace="5" hspace="5" src="Practica_4_09.png" alt=""> <img vspace="5" hspace="5" src="Practica_4_10.png" alt=""> <h2 id="18">Problema 5</h2>
+<p>El archivo se encuentra en el repositorio. <a href="<Problema_5.jpeg">&lt;Problema_5.jpeg</a>&gt;</p>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% ASyS Practica 4: Señales en tiempo discreto
+%
+%% Integrantes
+% * Dorantes Ochoa Daniel
+% * Ruiz Guadarrama Juan Carlos
+% * Santos Garrido Diana Karen
+%
+%% Objetivos de la Practica:
+%
+% * Manipulación básica de MATLAB
+% * Gráficas de señales reales y complejas discretas
+% * Transformación de señales discretas (escalamientos y traslaciones)
+%
+%% Introduccion 
+% El equipo investigo como se grafica con Phyton y como evidencia se
+% realizo el Problema 1 
+% A lo que el resultado nos dio:
+%%
+% <<Problema_1.png>>
+%
+%%
+% <<Problema_1_1.jpeg>>
+%
+%%
+% El codigo con el que se genero la grafica pues consultarse en este
+% <https://colab.research.google.com/drive/1Pqpn7fL48zKRTyyITcP_pIhH6WWOcIDe?usp=sharing enlace> 
+% 
+% 
+%% Problema 1
+ f = @(n) exp(-floor(n)/5) .* cos(pi*floor(n)/5) .* (floor(n) >= 0);
+n = -10:10;
+f_n_2 = f(n/2);
+figure;
+%%  
+% Considere la función de tiempo discreto f[n]=e−n/5 cos(πn/5)u[n].
+% La sección 3.11 utiliza funciones anónimas para describir señales DT.
+% f = @(n) exp(-n/5).*cos(pi*n/5).*(n>=0);
+% Si bien esta función anónima funciona correctamente para una operación de reducción de resolución como
+% f[2n], no funciona correctamente durante un
+% operación de muestreo superior, como f[n/2]. Modifique la función anónima f para que también
+% Se adapta correctamente a las operaciones de sobremuestreo.
+% Pruebe su código computando y trazando 
+% f(n/2) sobre (−10 ≤ n ≤ 10).
+%% 
+stem(n, f_n_2, 'o','filled');
+title('f[n/2] con Sobremuestreo');
+xlabel('n');
+ylabel('f[n/2]');
+grid on;
+
+%% Problema 3
+% Supongamos que existe un vector x en MATLAB espacio de trabajo, correspondiente a una duración finita
+% Señal DT x[n]
+% * (a) Escriba una función de MATLAB que, cuando pasa el vector x, calcula y devuelve Ex,
+% la energía de x[n].
+% * (b) Escriba una función de MATLAB que, cuando pasa el vector x, calcula y devuelve Px,
+% la potencia de x[n]. Supongamos que x[n] es periódico y ese vector x contiene datos para
+% un número entero de períodos de x[n].
+%% Energia
+
+x = @(n) (heaviside(n));
+n = -2:8;
+figure
+stem(n,x(n));
+
+n = 0:5;
+E = sum(x(n).^2)
+%% Potencia
+syms N;
+x = @(n) (heaviside(n));
+
+n = -3:3;
+figure
+stem(n,x(n));
+
+limit(((1/2*N)+1)*(sum(x(n).^2)),N,inf);
+
+%% Problema 4 
+% 3.1-1 Encuentre la energía de las señales representadas en
+% Figura P3.1-1.
+%% A)
+x = @(n) ((-n).*heaviside(-n).*(heaviside(-n)));
+x2= @(n) ((n).*heaviside(n));
+x3= @(n) (heaviside(n));
+n = -8:8;
+figure
+stem(n,x2(n+3).*x3(-n)+x(n-3).*x3(n+1));
+n=-3:3;
+E = sum(x(n).^2)
+
+%% B)
+x = @(n) ((-n).*heaviside(-n).*(heaviside(-n)));
+x2= @(n) ((n).*heaviside(n));
+x3= @(n) (heaviside(n));
+n = -8:8;
+figure
+stem(n,x(n-6).*x3(n-2)+x2(n).*x3(-n+3));
+n=-3:3;
+E = sum(x(n).^2)
+%% C)
+x = @(n) ((3*n).*heaviside(n)+(3*n).*heaviside(-n));
+n = -3:3;
+figure
+stem(n,x(n));
+n=-3:3;
+E = sum(x(n).^2)
+%% D)
+x = @(n) ((2*n).*heaviside(n)+(-2*n).*heaviside(-n));
+n = -2:2;
+figure
+stem(n,x(n));
+n=-2:2;
+E = sum(x(n).^2);
+%% Problema 5
+% El archivo se encuentra en el repositorio.
+% <<Problema_5.jpeg>>
+
+##### SOURCE END #####
+-->
+</body>
+</html>

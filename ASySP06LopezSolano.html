@@ -1,0 +1,722 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ASyS Practica 6: Convoluci&oacute;n y correlaci&oacute;n</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-10-27"><meta name="DC.source" content="ASySP06LopezSolano.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>ASyS Practica 6: Convoluci&oacute;n y correlaci&oacute;n</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Integrantes</a></li><li><a href="#2">Objetivos de la Practica:</a></li><li><a href="#3">Introduccion</a></li><li><a href="#4">Metodo numerico 1</a></li><li><a href="#6">M&eacute;todo num&eacute;rico 2</a></li><li><a href="#7">Metodo numerico 3</a></li><li><a href="#8">Metodo numerico 4</a></li><li><a href="#9">Metodo numerico 5</a></li><li><a href="#10">Desarrollo</a></li><li><a href="#11">Problema 1</a></li><li><a href="#12">Analitico Problema 1</a></li><li><a href="#18">Convolucion Matlab</a></li><li><a href="#20">Simulacion Problema 1</a></li><li><a href="#22">Problema 2</a></li><li><a href="#23">Analitico Problema 2</a></li><li><a href="#28">Autocorrelacion MATLAB</a></li><li><a href="#30">Problema 3</a></li><li><a href="#31">C)</a></li><li><a href="#32">D)</a></li><li><a href="#34">Problema 4</a></li><li><a href="#37">Problema 5</a></li><li><a href="#38">C)</a></li><li><a href="#39">D)</a></li></ul></div><h2 id="1">Integrantes</h2><div><ul><li>Dorantes Ochoa Daniel</li><li>Ruiz Guadarrama Juan Carlos</li><li>Santos Garrido Diana Karen</li><li>Lopez Solano Irvin</li></ul></div><h2 id="2">Objetivos de la Practica:</h2><div><ul><li>Conocer m&eacute;todos b&aacute;sicos de integraci&oacute;n num&eacute;rica *Manipulaci&oacute;n de instrucciones en MATLAB *Simular convoluciones y correlaciones de se&ntilde;ales continuas *Simular convoluciones y correlaciones de se&ntilde;ales discretas</li></ul></div><h2 id="3">Introduccion</h2><h2 id="4">Metodo numerico 1</h2><p>Este metodo consiste en aproximar nuestra funcion f(x) con un polinomio sencillo, proponiendo 3 rectas que encierren a nuestra funcion como lo pueden ser:</p><p><img src="ASySP06LopezSolano_eq00960674987810716869.png" alt="$$l_1 = ((a,0), (a,f(a)))$$"></p><p><img src="ASySP06LopezSolano_eq06220640952090931550.png" alt="$$l_2 = ((b,0), (b,f(b)))$$"></p><p><img src="ASySP06LopezSolano_eq06221322259359776900.png" alt="$$l_3 = ((a,0), (b,0))$$"></p><p>es decir si se quiere hacer la aprximacion de la integral de: <img src="ASySP06LopezSolano_eq12570303170772059189.png" alt="$$e^{-x^2}$"> de -1 a 1 se puede proponer un rectagunlo de de base 2 y altura 1 dando como resultado 2 mientras que el resultado de nuestra integral es 1.443</p><h2 id="6">M&eacute;todo num&eacute;rico 2</h2><p>El m&eacute;todo de Newton-cotes (cerrado) consta de aproximar la integral mediante encontrar un polinomio de grado n dependiendo de nuestra funci&oacute;n f(x) y que coincide en ciertos puntos con la funci&oacute;n original m&aacute;s un t&eacute;rmino de error.</p><p>Por lo que si se quiere un polinomio de grado 1 se requieren 2 puntos, del mismo modo se requiere que el paso entre los puntos sea el mismo mediante la f&oacute;rmula:</p><p><img src="ASySP06LopezSolano_eq16629917915692954779.png" alt="$$h = (b-a)/n $$"></p><p>Con todo esto ya podemos empezar a hacer las evaluaciones para f(x) con el polinomio que hayamos escogido mediante la f&oacute;rmula:</p><p><img src="ASySP06LopezSolano_eq05665176521151265237.png" alt="$$ \int_{x_a}^{x_b} f(x)dx= \frac{h}{2} [f(x_a)+f(x_b)]- \frac{h^3}{12} f''( \epsilon) $$"></p><p>V&eacute;ase que termin&oacute; de error es el t&eacute;rmino que aparece del lado derecho de la primera evaluaci&oacute;n.</p><h2 id="7">Metodo numerico 3</h2><p>Este metodo recibe el nombre de regla de simpson y consiste en usar la regla del trapecio descrito en el punto anterior pero ahora usando 3 o mas puntos por lo que la formula ahora queda como:</p><p><img src="ASySP06LopezSolano_eq14240984470823137558.png" alt="$$ \int_{x_a}^{x_b} f(x)dx= \frac{h}{3} [f(x_a)+4f(x_1)+f(x_b)]- \frac{h^5}{90} f^{(4)} ( \epsilon) $$  con   $$ x_a < \epsilon < x_b $$"></p><p>mientras que <img src="ASySP06LopezSolano_eq14176865243698795029.png" alt="$$ x_1 $$"> esta dado por el paso "h" descrito por:</p><p><img src="ASySP06LopezSolano_eq10564933897262866040.png" alt="$$h = \frac{b-a}{2} $$"></p><p>Mientras que para para la misma funcion pero ahora para un polinomio de grado 3 tenemos: <img src="ASySP06LopezSolano_eq16350289146737616113.png" alt="$$ \int_{x_a}^{x_b} f(x)dx= \frac{3}{8}h [f(x_a)+3f(x_1)+3f(x_2)+f(x_b)]- \frac{3h^5}{80} f^{(4)} ( \epsilon) $$">  con   <img src="ASySP06LopezSolano_eq10517786821477897876.png" alt="$$ x_a < \epsilon < x_b $$"></p><p>mientras que <img src="ASySP06LopezSolano_eq14176865243698795029.png" alt="$$ x_1 $$"> y <img src="ASySP06LopezSolano_eq00234473301421613559.png" alt="$$ x_2 $$"> estan dados por:</p><p><img src="ASySP06LopezSolano_eq00569531704632203991.png" alt="$$ x_1 =a+ \frac{b-a}{3} = \frac{2a+b}{3} $$"></p><p><img src="ASySP06LopezSolano_eq12006789781094153387.png" alt="$$ x_2 =a+ \frac{2b-2a}{3} = \frac{2b+a}{3} $$"></p><p>y como se puede deducir entre mas puntos tomemos el resultado sera mas exacto al resultado real pues se parece mas a la funcion original nuestras evaluaciones.</p><h2 id="8">Metodo numerico 4</h2><p>Ahora para este metodo podemos extender las formulas de newton-cotes bajo el nombre "newton-cotes compuestas" que basicamente consiste en tener un conjunto de trapecios en lugar de un solo trapecio. Por lo que ahora nuestra formula del trapecio compuesto se modifica de esta forma:</p><p><img src="ASySP06LopezSolano_eq00423390184578521624.png" alt="$$ \int_{a}^{b} f(x)dx= \frac{h}{2} [f(a)+2 \sum_{j=1}^{n-1}{f(x_j)}+f(b)]- \frac{b-a}{12}h^2 f''(u) $$  con u en el intervalo de $$ u t(a,b) $$"></p><p>n lo que significa es el numero de intervalos de integracion, h o el paso se sigue calculando con la misma formula mientras que las <img src="ASySP06LopezSolano_eq02522687756922350433.png" alt="$$ x_j = a+jh $$"></p><p>Mientras que ahora nuestras regla de simpson recibe el nombre de "Regla compuesta de simpson" y se utilizando 2 intervalos para generar una parabola entre ellos y seguir esta logica hasta cubrir toda nuestra area de integracion mediante la formula: <img src="ASySP06LopezSolano_eq17260676873202753083.png" alt="$$ \int_{a}^{b} f(x)dx= \frac{h}{3} [f(a)+2 \sum_{j=1}^{(n/2)-1}{f(x_{2j})}+4 \sum_{j=1}^{n/2}{f(x_{2j-1})}+f(b)]- \frac{b-a}{180}h^4 f^{(4)} (u) $$"> con <img src="ASySP06LopezSolano_eq04329454973038016253.png" alt="$$ u t(a,b) $$"></p><p>Aqui "n" significa el numero de intervalos en que se divide la funcion original; el paso y los <img src="ASySP06LopezSolano_eq00766677169641988457.png" alt="$$ x_j $$"> se calculan de la misma forma que en la regla del trapecio compuesto.</p><h2 id="9">Metodo numerico 5</h2><p>Este metodo recibe el nombre de cuadratura gaussiana que trata de hacer similutudes con las formulas de los trapecios y los metodos de simpson pues este metodo trata de aproximar la integral por evaluaciones en determinados puntos por determinadas constantes dentro del intervalo a,b en "n" iteraciones arrojando "2n" parametros. Este metodo numerico utiliza los polinomios de legendre que son polinomios entre -1 y 1. Por lo que si tenemos un Polinomio de legrende de grado n <img src="ASySP06LopezSolano_eq16417069228471967205.png" alt="$$ P_n (x) $$"> y sean <img src="ASySP06LopezSolano_eq00924377661892378454.png" alt="$$ x_1,x_2,..., x_n $$"> las raices de <img src="ASySP06LopezSolano_eq16417069228471967205.png" alt="$$ P_n (x) $$"> podemos calcular los coeficientes como:</p><p><img src="ASySP06LopezSolano_eq06315031749514052491.png" alt="$$ C_i= \int_{-1}^{1} \prod_{j=1}^{n}\frac{x-x_j}{x_i-x_j} dx $$ por lo tanto tenemos: $$ \int_{-1}^{1} P_n (x) dx= \sum_{i=1}^{n}{C_i P(x_i)} $$"></p><p>siendo <img src="ASySP06LopezSolano_eq13284991490131736638.png" alt="$$ P(x) $$"> de grado menor que 2n pero como ahora no tenemos un termino de error para las evaluaciones, sin embargo existen tablas para ello donde si se quiere aproximar un polinomio de grado 2 de legendre se necesitan 2 raices y 2 coeficientes multplicando dicho coeficiente con la evaluacion de la funcion en esa raiz, asi sucesivamente con cada grado "n" de los polinomios.</p><p>Su formula para una region de integracion distinta a (-1,1) se tiene que es:</p><p><img src="ASySP06LopezSolano_eq06432914109285394160.png" alt="$$ \int_{a}^{b} f(x)dx = \int_{-1}^{1} f(\frac{(b-a)t+b+a}{2}) \frac{b-a}{2}dt $$"></p><p>donde los cambios de variables fueron:</p><p><img src="ASySP06LopezSolano_eq02790748930888125344.png" alt="$$ t= \frac{2x-a-b}{b-a} $$"></p><p><img src="ASySP06LopezSolano_eq09588882401870874084.png" alt="$$ x= \frac{1}{2} [(b-a)t+a+b] $$"></p><h2 id="10">Desarrollo</h2><p>Para el desarrollo se tienen que resolver cada uno de los siguientes problemas comenzando una nueva secci&oacute;n (para la publicaci&oacute;n) en cada uno de ellos. Para cada problema se tendr&aacute;n que hacer las mod&iacute;ficaciones necesarias al c&oacute;digo de ejemplo, convendr&iacute;a entonces pensar en realizar una modificaci&oacute;n general de tal manera que el programa funcione para cualquier convolucion dos funciones, pero esto es opcional.</p><h2 id="11">Problema 1</h2><p>Para el PR04 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la convoluci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema 1, esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de la convoluci&oacute;n, y en esta &uacute;ltima gr&aacute;ficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><h2 id="12">Analitico Problema 1</h2><p>Funcion x(t)</p><pre class="codeinput">syms <span class="string">t</span>
+f= exp(-t).*heaviside(t)-exp(-t).*heaviside(t-1);
+r= matlabFunction(f)
+t=-3:0.01:3;
+plot(t,r(t));
+title(<span class="string">'Funcion f(t)'</span>);
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'f(t)'</span>)
+</pre><pre class="codeoutput">
+r =
+
+  function_handle with value:
+
+    @(t)exp(-t).*heaviside(t)-heaviside(t-1.0).*exp(-t)
+
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_01.png" alt=""> <p>Funcion g(t)</p><pre class="codeinput">syms <span class="string">t</span>
+y= t.*heaviside(-t)+t.*heaviside(t)-t.*heaviside(-t-1)-t.*heaviside(t-1);
+e=matlabFunction(y);
+t=-3:0.001:3;
+plot(t,e(t));
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+title(<span class="string">'Funcion g(t)'</span>);
+xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'g(t)'</span>);
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_02.png" alt=""> <p>Convolucion de x(t)*g(t)</p><pre class="codeinput">syms <span class="string">t</span> <span class="string">tau</span>
+F_rg = int(r(tau)*e(t-tau),tau,0,t);
+F_rg=simplify(F_rg,<span class="string">"Steps"</span>,30)
+l=matlabFunction(F_rg);
+t=-3:0.001:3;
+plot(t,l(t));
+</pre><pre class="codeoutput"> 
+F_rg =
+ 
+heaviside(t)*(t + exp(-t) - 1) - heaviside(t - 1)*(exp(-t) - 2*exp(-1) + t*exp(-1)) - heaviside(t - 1)*(t - 1) + heaviside(t - 2)*exp(-1)*(t - 2)
+ 
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_03.png" alt=""> <h2 id="18">Convolucion Matlab</h2><pre class="codeinput">figure
+subplot(1,3,1)
+syms <span class="string">t</span>
+x=piecewise(t&lt;0,0,0&lt;=t&lt;=1,exp(-t),t&gt;1,0);
+fplot(x,[-1,3],<span class="string">'r'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'x(t)'</span>)
+axis([-1 3.6 -2 2]);
+subplot(1,3,2)
+h=piecewise(t&lt;-1,0,-1&lt;t&lt;1,t,1&lt;t,0);
+fplot(h,[-3,3],<span class="string">'r'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'h(t)'</span>)
+axis([-3 3 -2 2]);
+t1=-3:0.01:0;
+t2=0:0.01:1;
+t3=1:0.01:2;
+t4=2:0.01:3;
+subplot(1,3,3)
+plot(t1,0)
+hold <span class="string">on</span>
+plot(t2,(.75).*exp(t2)-1);
+plot(t3,-(t3-2))
+plot(t4,0)
+grid <span class="string">on</span>
+title(<span class="string">'x(t)*h(t)'</span>)
+axis([-1 3.6 -2 2]);
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_04.png" alt=""> <h2 id="20">Simulacion Problema 1</h2><pre class="codeinput">h=@(t)  t.*heaviside(-t)+t.*heaviside(t)-t.*heaviside(-t-1)-t.*heaviside(t-1);
+x=@(t) exp(-t).*heaviside(t)-exp(-t).*heaviside(t-1);
+convconm(x,h);
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_05.png" alt=""> <h2 id="22">Problema 2</h2><p>Para el PR05 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la correalci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema e), esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de su correlaci&oacute;n, y en esta &uacute;ltima graficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><h2 id="23">Analitico Problema 2</h2><p>Funcion Original</p><p>x(t)</p><pre class="codeinput"> syms <span class="string">t</span>;
+ figure;
+ x1= heaviside(t)- 2.*heaviside(t-3)+ heaviside(t-4);
+ v= matlabFunction(x1);
+ t=-3:.01:12;
+ plot(t,v(t));
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_06.png" alt=""> <p>x(-t)</p><pre class="codeinput"> syms <span class="string">t</span>;
+ figure;
+ x2= heaviside(-t)- 2.*heaviside(-t-3)+ heaviside(-t-4);
+ u= matlabFunction(x2);
+ t=-12:.01:3;
+ plot(t,u(t));
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_07.png" alt=""> <h2 id="28">Autocorrelacion MATLAB</h2><pre class="codeinput">x=@(t) heaviside(t)- 2.*heaviside(t-3)+ heaviside(t-4);
+h=@(t) heaviside(-t)- 2.*heaviside(-t-3)+ heaviside(-t-4);
+convconm(x,h);
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_08.png" alt=""> <h2 id="30">Problema 3</h2><p>Realice la simuaci&oacute;n de la convoluci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1.1</p><h2 id="31">C)</h2><pre class="codeinput">x = @(n) ((3*n).*heaviside(n)+(3*n).*heaviside(-n));
+n = -3:3;
+figure
+stem(n,x(n));
+title(<span class="string">"Se&ntilde;al x[n]"</span>);
+ylabel(<span class="string">"x[n]"</span>); xlabel(<span class="string">"n"</span>);
+n=-3:3;
+E = sum(x(n).^2)
+</pre><pre class="codeoutput">
+E =
+
+   252
+
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_09.png" alt=""> <h2 id="32">D)</h2><pre class="codeinput">x = @(n) ((2*n).*heaviside(n)+(-2*n).*heaviside(-n));
+n = -2:2;
+figure
+stem(n,x(n));
+title(<span class="string">"Se&ntilde;al y[n]"</span>);
+ylabel(<span class="string">"y[n]"</span>); xlabel(<span class="string">"n"</span>);
+n=-2:2;
+E = sum(x(n).^2);
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_10.png" alt=""> <pre class="codeinput">n=0:10;
+a=[0 0 -9 -6 -3 0 3 6 9 0 0]
+b=[0 0  0 4 2 0 2 4 0 0 0]
+convdisc([n;a],[n;b]);
+</pre><pre class="codeoutput">
+a =
+
+     0     0    -9    -6    -3     0     3     6     9     0     0
+
+
+b =
+
+     0     0     0     4     2     0     2     4     0     0     0
+
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_11.png" alt=""> <h2 id="34">Problema 4</h2><p>Realice la simuaci&oacute;n de la correlaci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1.1</p><p>Usando la funcion Convdisc nos da:</p><pre class="codeinput">a2 = @(n) ((3*n).*heaviside(n)+(3*n).*heaviside(-n));
+a21=-3:3;
+b2 = @(n) ((2*-n).*heaviside(-n)+(-2*-n).*heaviside(+n));
+b21= -2:2;
+convdisc([a21;a2(a21)],[b21;b2(b21)]);
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_12.png" alt=""> <h2 id="37">Problema 5</h2><p>Realice la la convoluci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1.1 utilizando el comando conv de MATLAB, muestre el c&oacute;digo utilizado y gr&aacute;fique el resultado, sugerencia: Utilice las propiedades de traslaci&oacute;n de la convoluci&oacute;n.</p><h2 id="38">C)</h2><pre class="codeinput">x = @(n) ((3*n).*heaviside(n)+(3*n).*heaviside(-n));
+n = -3:3;
+figure
+stem(n,x(n));
+title(<span class="string">"Se&ntilde;al x[n]"</span>);
+ylabel(<span class="string">"x[n]"</span>); xlabel(<span class="string">"n"</span>);
+n=-3:3;
+E = sum(x(n).^2)
+</pre><pre class="codeoutput">
+E =
+
+   252
+
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_13.png" alt=""> <h2 id="39">D)</h2><pre class="codeinput">y = @(n) ((2*n).*heaviside(n)+(-2*n).*heaviside(-n));
+n = -2:2;
+figure
+stem(n,y(n));
+title(<span class="string">"Se&ntilde;al y[n]"</span>);
+ylabel(<span class="string">"y[n]"</span>); xlabel(<span class="string">"n"</span>);
+n=-2:2;
+E = sum(y(n).^2);
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_14.png" alt=""> <pre class="codeinput">n=-10:10;
+a=[0 0 -9 -6 -3 0 3 6 9 0 0]
+b=[0 0 0 4 2 0 2 4 0 0 0]
+C=conv(a,b);
+figure
+subplot(1,1,1)
+stem(n,C);
+title(<span class="string">"Convolucion de se&ntilde;ales x[n]*y[n]"</span>);
+ylabel(<span class="string">"x[n]*y[n]"</span>); xlabel(<span class="string">"n"</span>);
+</pre><pre class="codeoutput">
+a =
+
+     0     0    -9    -6    -3     0     3     6     9     0     0
+
+
+b =
+
+     0     0     0     4     2     0     2     4     0     0     0
+
+</pre><img vspace="5" hspace="5" src="ASySP06LopezSolano_15.png" alt=""> <pre class="codeinput"><span class="keyword">function</span> convdisc(x1,x2)
+    Tam1 = size(x1(1,:));
+    Tam2 = size(x2(1,:));
+    T1 = Tam1(2);
+    T2 = Tam2(2);
+    T3 = T1+T2-1;
+    vec1 = zeros(1,T1+2*T2-2);
+    vec2 = zeros(1,T1+2*T2-2);
+    Tec2 = -(T2-1):(T1+T2-2);
+    size(vec2);
+    size(Tec2);
+    x3=zeros(2,T3);
+    x3(1,:)=0:T3-1;
+    x3(1,:)=x3(1,:)+x1(1,1)+x2(1,1);
+    vec1(1,T2:T2+T1-1)=x1(2,:);
+    figure (1)
+    hFig = figure(1);
+    set(hFig, <span class="string">'Position'</span>, [0 0 1000 1000])
+    filename = <span class="string">'testAnimated.gif'</span>;
+    ttt=1;
+    <span class="keyword">for</span> m=0:T1+T2-2
+        vec2(1,1+m:T2+m)=fliplr(x2(2,:));
+        x3(2,m+1)=sum(vec1.*vec2);
+        subplot(4,1,4)
+        stem(x3(1,:),x3(2,:),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,3)
+        axis([Tec2(1),T1+2*T2-2,  min(x3(2,:))-1 max(x3(2,:))+1])
+        ylim(<span class="string">'auto'</span>)
+        ylabel(<span class="string">'x_3[n]'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        xlabel(<span class="string">'n'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        grid <span class="string">on</span>
+        subplot(4,1,1)
+        stem(x2(1,:),x2(2,:),<span class="string">'k'</span>,<span class="string">'LineWidth'</span>,3)
+        ylabel(<span class="string">'x_2[m]'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        xlabel(<span class="string">'m'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        title(<span class="string">'CONVOLUCI&oacute;N'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        grid <span class="string">on</span>
+        axis([Tec2(1),T1+2*T2-2, min(x2(2,:))-1 max(x2(2,:))+1])
+        ylim(<span class="string">'auto'</span>)
+        subplot(4,1,2)
+        stem(x1(1,:),x1(2,:),<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,3)
+        ylabel(<span class="string">'x_1[m]'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        xlabel(<span class="string">'m'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        grid <span class="string">on</span>
+        axis([Tec2(1),T1+2*T2-2, min(x1(2,:))-1 max(x1(2,:))+1])
+        ylim(<span class="string">'auto'</span>)
+        subplot(4,1,3)
+        stem(Tec2,vec2(1,:),<span class="string">'g'</span>,<span class="string">'LineWidth'</span>,3)
+        axis([Tec2(1),T1+2*T2-2,min(vec2)-1, max(vec2)+1 ])
+        ylim(<span class="string">'auto'</span>)
+        ylabel(<span class="string">'x_2[n-m]'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        xlabel(<span class="string">'m'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+        grid <span class="string">on</span>
+        drawnow;
+        pause(0.4)
+        vec2 = zeros(1,T1+2*T2-2);
+        frame = getframe(hFig);
+        im = frame2im(frame);
+        [imind,cm] = rgb2ind(im,256);
+        <span class="comment">% Write to the GIF File</span>
+        <span class="keyword">if</span> ttt == 1
+          imwrite(imind,cm,filename,<span class="string">'gif'</span>, <span class="string">'Loopcount'</span>,inf);
+        <span class="keyword">else</span>
+          imwrite(imind,cm,filename,<span class="string">'gif'</span>,<span class="string">'WriteMode'</span>,<span class="string">'append'</span>);
+        <span class="keyword">end</span>
+        ttt=ttt+1;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeinput">  <span class="keyword">function</span> convconm(x,h)
+  figure (1) <span class="comment">% Se crea una figura para hacer las gr&aacute;ficas</span>
+  dtau = 0.005; <span class="comment">% Base de los rectangulos para realizar la integral</span>
+  tau = -1:dtau:4; <span class="comment">% Intervalo de visualizaci&oacute;n del resultado</span>
+  ti = 0; <span class="comment">% Indice para el vector de resultados</span>
+  tvec = -.25:.1:3.75; <span class="comment">% traslaciones de t, cuantas integrales se calulan</span>
+  y = NaN*zeros(1, length (tvec)); <span class="comment">% Resultados de acuerdo a cuantos t</span>
+  <span class="keyword">for</span> t = tvec, <span class="comment">% Cantidad de traslaciones</span>
+      ti = ti+1; <span class="comment">% Indice para guardar el resultado (indice del tiempo)</span>
+      xh = x(t-tau).*h(tau); <span class="comment">% resultado de la multiplicaci&oacute;n</span>
+      lxh = length(xh); <span class="comment">% longitud del resultado</span>
+      y(ti) = sum(xh.*dtau); <span class="comment">% Base por altura, aproximaci&oacute;n de la integral</span>
+      subplot (2,1,1), <span class="comment">% gr&aacute;fica de 2 x 1 (primera)</span>
+      plot(tau, h(tau), <span class="string">'r-'</span>, tau, x(t-tau), <span class="string">'g--'</span>, t, 0, <span class="string">'ob'</span>); <span class="comment">%graficas</span>
+      axis ([tau(1) tau(end) -2.0 2.5]); <span class="comment">% l&iacute;mites de los ejes</span>
+      patch([tau(1:end-1); tau(1:end-1); tau(2:end); tau(2:end)],<span class="keyword">...</span>
+      [zeros(1,lxh-1);xh(1:end-1);xh(2:end);zeros(1,lxh-1)],<span class="keyword">...</span>
+      [.8 .8 .8], <span class="string">'edgecolor'</span>, <span class="string">'none'</span>);
+      xlabel(<span class="string">'\tau'</span>); <span class="comment">% Texto del eje X</span>
+      legend(<span class="string">'h(\tau)'</span>, <span class="string">'x(t-\tau)'</span>,<span class="string">'t'</span>,<span class="string">'h(\tau)x(t-\tau)'</span>)<span class="comment">% Caja de Texto</span>
+      subplot (2, 1, 2)  <span class="comment">% gr&aacute;fica de 2 x 1 (segunda)</span>
+      plot (tvec, y, <span class="string">'k'</span>, tvec (ti), y(ti), <span class="string">'ok'</span>);
+      xlabel (<span class="string">'t'</span>);
+      ylabel (<span class="string">'y(t) = \int h(\tau)x(t-\tau) d\tau'</span>);
+      axis ([tau(1) tau(end) -1.0 2.0]); <span class="comment">% l&iacute;mites del eje</span>
+      grid; <span class="comment">% malla</span>
+      drawnow; <span class="comment">% efecto de movimiento continuo</span>
+  <span class="keyword">end</span>
+  <span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% ASyS Practica 6: Convolución y correlación
+%
+%% Integrantes
+% * Dorantes Ochoa Daniel
+% * Ruiz Guadarrama Juan Carlos
+% * Santos Garrido Diana Karen
+% * Lopez Solano Irvin
+%% Objetivos de la Practica:
+%
+% * Conocer métodos básicos de integración numérica
+% *Manipulación de instrucciones en MATLAB
+% *Simular convoluciones y correlaciones de señales continuas
+% *Simular convoluciones y correlaciones de señales discretas
+%
+%% Introduccion 
+ %% Metodo numerico 1
+% Este metodo consiste en aproximar nuestra funcion f(x) con un polinomio
+% sencillo, proponiendo 3 rectas que encierren a nuestra funcion como lo pueden ser:
+%%
+% $$l_1 = ((a,0), (a,f(a)))$$
+%
+% $$l_2 = ((b,0), (b,f(b)))$$
+%
+% $$l_3 = ((a,0), (b,0))$$
+%
+% es decir si se quiere hacer la aprximacion de la integral de: 
+% $$e^{-x^2}$ de -1 a 1 se puede proponer un rectagunlo de de base 2 y
+% altura 1 dando como resultado 2 mientras que el resultado de nuestra
+% integral es 1.443 
+%
+ %% Método numérico 2
+% El método de Newton-cotes (cerrado) consta de aproximar la integral 
+% mediante encontrar un polinomio de grado n dependiendo de nuestra función
+% f(x) y que coincide en ciertos puntos con la función original más un 
+% término de error.
+%
+% Por lo que si se quiere un polinomio de grado 1 se requieren 2 puntos, 
+% del mismo modo se requiere que el paso entre los puntos sea el mismo 
+% mediante la fórmula:
+%
+% $$h = (b-a)/n $$
+%
+% Con todo esto ya podemos empezar a hacer las evaluaciones para f(x) con el
+% polinomio que hayamos escogido mediante la fórmula: 
+%
+% $$ \int_{x_a}^{x_b} f(x)dx= \frac{h}{2} [f(x_a)+f(x_b)]- \frac{h^3}{12} f''( \epsilon) $$
+%
+% Véase que terminó de error es el término que aparece del lado derecho de la primera evaluación.
+ %% Metodo numerico 3 
+% Este metodo recibe el nombre de regla de simpson y consiste en usar la
+% regla del trapecio descrito en el punto anterior pero ahora usando 3 o
+% mas puntos por lo que la formula ahora queda como:
+%
+% $$ \int_{x_a}^{x_b} f(x)dx= \frac{h}{3} [f(x_a)+4f(x_1)+f(x_b)]- \frac{h^5}{90} f^{(4)} ( \epsilon) $$  con   $$ x_a < \epsilon < x_b $$
+%
+% mientras que $$ x_1 $$ esta dado por el paso "h" descrito por: 
+%
+% $$h = \frac{b-a}{2} $$
+%
+% Mientras que para para la misma funcion pero ahora para un polinomio de grado 3 tenemos:
+% $$ \int_{x_a}^{x_b} f(x)dx= \frac{3}{8}h [f(x_a)+3f(x_1)+3f(x_2)+f(x_b)]- \frac{3h^5}{80} f^{(4)} ( \epsilon) $$  con   $$ x_a < \epsilon < x_b $$
+%
+% mientras que $$ x_1 $$ y $$ x_2 $$ estan dados por: 
+%
+% $$ x_1 =a+ \frac{b-a}{3} = \frac{2a+b}{3} $$
+%                                    
+% $$ x_2 =a+ \frac{2b-2a}{3} = \frac{2b+a}{3} $$
+%
+% y como se puede deducir entre mas puntos tomemos el resultado sera mas
+% exacto al resultado real pues se parece mas a la funcion original
+% nuestras evaluaciones.
+ %% Metodo numerico 4 
+% Ahora para este metodo podemos extender las formulas de newton-cotes bajo
+% el nombre "newton-cotes compuestas" que basicamente consiste en tener un
+% conjunto de trapecios en lugar de un solo trapecio. Por lo que ahora
+% nuestra formula del trapecio compuesto se modifica de esta forma:
+%
+% $$ \int_{a}^{b} f(x)dx= \frac{h}{2} [f(a)+2 \sum_{j=1}^{n-1}{f(x_j)}+f(b)]- \frac{b-a}{12}h^2 f''(u) $$  con u en el intervalo de $$ u t(a,b) $$
+% 
+% n lo que significa es el numero de intervalos de integracion, h o el paso
+% se sigue calculando con la misma formula mientras que las $$ x_j = a+jh $$
+%
+% Mientras que ahora nuestras regla de simpson recibe el nombre de "Regla
+% compuesta de simpson" y se utilizando 2 intervalos para generar una
+% parabola entre ellos y seguir esta logica hasta cubrir toda nuestra area
+% de integracion mediante la formula:
+% $$ \int_{a}^{b} f(x)dx= \frac{h}{3} [f(a)+2 \sum_{j=1}^{(n/2)-1}{f(x_{2j})}+4 \sum_{j=1}^{n/2}{f(x_{2j-1})}+f(b)]- \frac{b-a}{180}h^4 f^{(4)} (u) $$ con $$ u t(a,b) $$
+%
+% Aqui "n" significa el numero de intervalos en que se divide la funcion
+% original; el paso y los $$ x_j $$ se calculan de la misma forma que en la
+% regla del trapecio compuesto.
+ %% Metodo numerico 5 
+% Este metodo recibe el nombre de cuadratura gaussiana que trata de hacer
+% similutudes con las formulas de los trapecios y los metodos de simpson
+% pues este metodo trata de aproximar la integral por evaluaciones en
+% determinados puntos por determinadas constantes dentro del intervalo a,b
+% en "n" iteraciones arrojando "2n" parametros. Este metodo numerico
+% utiliza los polinomios de legendre que son polinomios entre -1 y 1.
+% Por lo que si tenemos un Polinomio de legrende de grado n $$ P_n (x) $$ y
+% sean $$ x_1,x_2,..., x_n $$ las raices de $$ P_n (x) $$ podemos calcular
+% los coeficientes como:
+%
+% $$ C_i= \int_{-1}^{1} \prod_{j=1}^{n}\frac{x-x_j}{x_i-x_j} dx $$ por lo tanto tenemos: $$ \int_{-1}^{1} P_n (x) dx= \sum_{i=1}^{n}{C_i P(x_i)} $$
+%
+% siendo $$ P(x) $$ de grado menor que 2n pero como ahora no tenemos un termino de error para las evaluaciones, sin
+% embargo existen tablas para ello donde si se quiere aproximar un polinomio
+% de grado 2 de legendre se necesitan 2 raices y 2 coeficientes
+% multplicando dicho coeficiente con la evaluacion de la funcion en esa
+% raiz, asi sucesivamente con cada grado "n" de los polinomios.
+%
+% Su formula para una region de integracion distinta a (-1,1) se tiene que
+% es:
+%
+% $$ \int_{a}^{b} f(x)dx = \int_{-1}^{1} f(\frac{(b-a)t+b+a}{2}) \frac{b-a}{2}dt $$
+% 
+% donde los cambios de variables fueron:
+%
+% $$ t= \frac{2x-a-b}{b-a} $$
+%
+% $$ x= \frac{1}{2} [(b-a)t+a+b] $$
+%% Desarrollo
+% Para el desarrollo se tienen que resolver cada uno de los siguientes problemas comenzando una nueva sección (para la publicación) en cada uno de ellos.
+% Para cada problema se tendrán que hacer las modíficaciones necesarias al código de ejemplo, convendría entonces pensar en realizar una modificación general de tal manera que 
+% el programa funcione para cualquier convolucion dos funciones, pero esto es opcional.
+%% Problema 1
+% Para el PR04 reporte la grafica de la simulación númerica de la convolución y compare con el resultado análitico que obtuvo para el problema 1,
+% esto es, su práctica tendrá que incluir una llamada a la funciónn convconm y posteriormente se tendrá que mostrar (mediante el Publish) la gráfica tanto de las señales 
+% involucradas como el resultado de la convolución, y en esta última gráficara su resultado analitico, se tendrá que incluir el resultado analitico.
+%% Analitico Problema 1
+% Funcion x(t)
+%%
+syms t
+f= exp(-t).*heaviside(t)-exp(-t).*heaviside(t-1);
+r= matlabFunction(f)  
+t=-3:0.01:3;
+plot(t,r(t));
+title('Funcion f(t)');
+xlabel('t');
+ylabel('f(t)')
+%%
+% Funcion g(t)
+%% 
+syms t
+y= t.*heaviside(-t)+t.*heaviside(t)-t.*heaviside(-t-1)-t.*heaviside(t-1);
+e=matlabFunction(y);
+t=-3:0.001:3;
+plot(t,e(t));
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+title('Funcion g(t)');
+xlabel('t'); ylabel('g(t)');
+%% 
+% Convolucion de x(t)*g(t)
+%% 
+syms t tau
+F_rg = int(r(tau)*e(t-tau),tau,0,t);
+F_rg=simplify(F_rg,"Steps",30)
+l=matlabFunction(F_rg);
+t=-3:0.001:3;
+plot(t,l(t));
+%% Convolucion Matlab
+%% 
+figure
+subplot(1,3,1)
+syms t
+x=piecewise(t<0,0,0<=t<=1,exp(-t),t>1,0);
+fplot(x,[-1,3],'r')
+grid on
+title('x(t)')
+axis([-1 3.6 -2 2]);
+subplot(1,3,2)
+h=piecewise(t<-1,0,-1<t<1,t,1<t,0);
+fplot(h,[-3,3],'r')
+grid on
+title('h(t)')
+axis([-3 3 -2 2]);
+t1=-3:0.01:0;
+t2=0:0.01:1;
+t3=1:0.01:2;
+t4=2:0.01:3;
+subplot(1,3,3)
+plot(t1,0)
+hold on
+plot(t2,(.75).*exp(t2)-1);
+plot(t3,-(t3-2))
+plot(t4,0)
+grid on
+title('x(t)*h(t)')
+axis([-1 3.6 -2 2]);
+%% Simulacion Problema 1
+%% 
+h=@(t)  t.*heaviside(-t)+t.*heaviside(t)-t.*heaviside(-t-1)-t.*heaviside(t-1);
+x=@(t) exp(-t).*heaviside(t)-exp(-t).*heaviside(t-1);
+convconm(x,h);
+%% Problema 2
+% Para el PR05 reporte la grafica de la simulación númerica de la correalción y compare con el resultado análitico que obtuvo 
+% para el problema e), esto es, su práctica tendrá que incluir una llamada a la funciónn convconm y posteriormente se tendrá que mostrar (mediante el Publish) 
+% la gráfica tanto de las señales involucradas como el resultado de su correlación, y en esta última graficara su resultado analitico, se tendrá que incluir 
+% el resultado analitico.
+%% Analitico Problema 2
+ % Funcion Original
+ %% 
+ % x(t)
+ %%
+ syms t;
+ figure;
+ x1= heaviside(t)- 2.*heaviside(t-3)+ heaviside(t-4);
+ v= matlabFunction(x1); 
+ t=-3:.01:12;
+ plot(t,v(t));
+ %%
+ % x(-t)
+ %%
+ syms t;
+ figure;
+ x2= heaviside(-t)- 2.*heaviside(-t-3)+ heaviside(-t-4);
+ u= matlabFunction(x2); 
+ t=-12:.01:3;
+ plot(t,u(t));
+%% Autocorrelacion MATLAB
+%%
+x=@(t) heaviside(t)- 2.*heaviside(t-3)+ heaviside(t-4);
+h=@(t) heaviside(-t)- 2.*heaviside(-t-3)+ heaviside(-t-4);
+convconm(x,h);
+%% Problema 3
+% Realice la simuación de la convolución de las señales (c) con (d) del problema 3.1.1
+%% C)
+x = @(n) ((3*n).*heaviside(n)+(3*n).*heaviside(-n));
+n = -3:3;
+figure
+stem(n,x(n));
+title("Señal x[n]");
+ylabel("x[n]"); xlabel("n");
+n=-3:3;
+E = sum(x(n).^2)
+%% D)
+x = @(n) ((2*n).*heaviside(n)+(-2*n).*heaviside(-n));
+n = -2:2;
+figure
+stem(n,x(n));
+title("Señal y[n]");
+ylabel("y[n]"); xlabel("n");
+n=-2:2;
+E = sum(x(n).^2);
+%% 
+n=0:10;
+a=[0 0 -9 -6 -3 0 3 6 9 0 0]
+b=[0 0  0 4 2 0 2 4 0 0 0]
+convdisc([n;a],[n;b]);
+%% Problema 4
+% Realice la simuación de la correlación de las señales (c) 
+% con (d) del problema 3.1.1
+%%
+% Usando la funcion Convdisc nos da:
+%%
+a2 = @(n) ((3*n).*heaviside(n)+(3*n).*heaviside(-n));
+a21=-3:3;
+b2 = @(n) ((2*-n).*heaviside(-n)+(-2*-n).*heaviside(+n));
+b21= -2:2;
+convdisc([a21;a2(a21)],[b21;b2(b21)]);
+%% Problema 5
+% Realice la la convolución de las señales (c) con (d) del problema 3.1.1 
+% utilizando el comando conv de MATLAB, muestre el código utilizado y 
+% gráfique el resultado, sugerencia: Utilice las propiedades de traslación 
+% de la convolución.
+%% C)
+x = @(n) ((3*n).*heaviside(n)+(3*n).*heaviside(-n));
+n = -3:3;
+figure
+stem(n,x(n));
+title("Señal x[n]");
+ylabel("x[n]"); xlabel("n");
+n=-3:3;
+E = sum(x(n).^2)
+%% D)
+y = @(n) ((2*n).*heaviside(n)+(-2*n).*heaviside(-n));
+n = -2:2;
+figure
+stem(n,y(n));
+title("Señal y[n]");
+ylabel("y[n]"); xlabel("n");
+n=-2:2;
+E = sum(y(n).^2);
+%% 
+n=-10:10;
+a=[0 0 -9 -6 -3 0 3 6 9 0 0]
+b=[0 0 0 4 2 0 2 4 0 0 0]
+C=conv(a,b);
+figure
+subplot(1,1,1)
+stem(n,C);
+title("Convolucion de señales x[n]*y[n]");
+ylabel("x[n]*y[n]"); xlabel("n");
+%% 
+function convdisc(x1,x2)
+    Tam1 = size(x1(1,:));
+    Tam2 = size(x2(1,:));
+    T1 = Tam1(2);
+    T2 = Tam2(2);
+    T3 = T1+T2-1;
+    vec1 = zeros(1,T1+2*T2-2);
+    vec2 = zeros(1,T1+2*T2-2);
+    Tec2 = -(T2-1):(T1+T2-2);
+    size(vec2);
+    size(Tec2);
+    x3=zeros(2,T3);
+    x3(1,:)=0:T3-1;
+    x3(1,:)=x3(1,:)+x1(1,1)+x2(1,1);
+    vec1(1,T2:T2+T1-1)=x1(2,:);
+    figure (1)
+    hFig = figure(1);
+    set(hFig, 'Position', [0 0 1000 1000])
+    filename = 'testAnimated.gif';
+    ttt=1;
+    for m=0:T1+T2-2
+        vec2(1,1+m:T2+m)=fliplr(x2(2,:));
+        x3(2,m+1)=sum(vec1.*vec2);
+        subplot(4,1,4)
+        stem(x3(1,:),x3(2,:),'r','LineWidth',3)
+        axis([Tec2(1),T1+2*T2-2,  min(x3(2,:))-1 max(x3(2,:))+1])
+        ylim('auto')
+        ylabel('x_3[n]','FontWeight','bold','FontSize',16);
+        xlabel('n','FontWeight','bold','FontSize',16);
+        grid on
+        subplot(4,1,1)
+        stem(x2(1,:),x2(2,:),'k','LineWidth',3)
+        ylabel('x_2[m]','FontWeight','bold','FontSize',16);
+        xlabel('m','FontWeight','bold','FontSize',16);
+        title('CONVOLUCIóN','FontWeight','bold','FontSize',16);
+        grid on
+        axis([Tec2(1),T1+2*T2-2, min(x2(2,:))-1 max(x2(2,:))+1])
+        ylim('auto')
+        subplot(4,1,2)
+        stem(x1(1,:),x1(2,:),'b','LineWidth',3)
+        ylabel('x_1[m]','FontWeight','bold','FontSize',16);
+        xlabel('m','FontWeight','bold','FontSize',16);
+        grid on
+        axis([Tec2(1),T1+2*T2-2, min(x1(2,:))-1 max(x1(2,:))+1])
+        ylim('auto')
+        subplot(4,1,3)
+        stem(Tec2,vec2(1,:),'g','LineWidth',3)
+        axis([Tec2(1),T1+2*T2-2,min(vec2)-1, max(vec2)+1 ])
+        ylim('auto')
+        ylabel('x_2[n-m]','FontWeight','bold','FontSize',16);
+        xlabel('m','FontWeight','bold','FontSize',16);
+        grid on
+        drawnow;
+        pause(0.4)
+        vec2 = zeros(1,T1+2*T2-2);
+        frame = getframe(hFig); 
+        im = frame2im(frame); 
+        [imind,cm] = rgb2ind(im,256); 
+        % Write to the GIF File 
+        if ttt == 1 
+          imwrite(imind,cm,filename,'gif', 'Loopcount',inf); 
+        else 
+          imwrite(imind,cm,filename,'gif','WriteMode','append'); 
+        end
+        ttt=ttt+1;
+    end
+end
+ %%
+  function convconm(x,h)
+  figure (1) % Se crea una figura para hacer las gráficas
+  dtau = 0.005; % Base de los rectangulos para realizar la integral 
+  tau = -1:dtau:4; % Intervalo de visualización del resultado
+  ti = 0; % Indice para el vector de resultados
+  tvec = -.25:.1:3.75; % traslaciones de t, cuantas integrales se calulan  
+  y = NaN*zeros(1, length (tvec)); % Resultados de acuerdo a cuantos t
+  for t = tvec, % Cantidad de traslaciones
+      ti = ti+1; % Indice para guardar el resultado (indice del tiempo)
+      xh = x(t-tau).*h(tau); % resultado de la multiplicación 
+      lxh = length(xh); % longitud del resultado
+      y(ti) = sum(xh.*dtau); % Base por altura, aproximación de la integral
+      subplot (2,1,1), % gráfica de 2 x 1 (primera)
+      plot(tau, h(tau), 'r-', tau, x(t-tau), 'gREPLACE_WITH_DASH_DASH', t, 0, 'ob'); %graficas 
+      axis ([tau(1) tau(end) -2.0 2.5]); % límites de los ejes
+      patch([tau(1:end-1); tau(1:end-1); tau(2:end); tau(2:end)],...
+      [zeros(1,lxh-1);xh(1:end-1);xh(2:end);zeros(1,lxh-1)],...
+      [.8 .8 .8], 'edgecolor', 'none');
+      xlabel('\tau'); % Texto del eje X
+      legend('h(\tau)', 'x(t-\tau)','t','h(\tau)x(t-\tau)')% Caja de Texto  
+      subplot (2, 1, 2)  % gráfica de 2 x 1 (segunda)
+      plot (tvec, y, 'k', tvec (ti), y(ti), 'ok');
+      xlabel ('t'); 
+      ylabel ('y(t) = \int h(\tau)x(t-\tau) d\tau');
+      axis ([tau(1) tau(end) -1.0 2.0]); % límites del eje
+      grid; % malla
+      drawnow; % efecto de movimiento continuo
+  end
+  end
+##### SOURCE END #####
+--></body></html>

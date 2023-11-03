@@ -1,0 +1,1121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Practica 7: Series de Fourier en tiempo continuo</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2023-11-03">
+<meta name="DC.source" content="ASyS_Practica7.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Practica 7: Series de Fourier en tiempo continuo</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Integrantes</a>
+</li>
+<li>
+<a href="#2">Objetivos de la Practica:</a>
+</li>
+<li>
+<a href="#3">Introduccion</a>
+</li>
+<li>
+<a href="#4">Desarrollo</a>
+</li>
+<li>
+<a href="#6">Ejemplo 6.2</a>
+</li>
+<li>
+<a href="#7">Exponencial ejemplo 6.2</a>
+</li>
+<li>
+<a href="#10">Ejemplo 6.4</a>
+</li>
+<li>
+<a href="#11">Exponencial ejemplo 6.4</a>
+</li>
+<li>
+<a href="#14">PR08</a>
+</li>
+<li>
+<a href="#15">Problema 1</a>
+</li>
+<li>
+<a href="#16">Exponencial PR08 Problema 1</a>
+</li>
+<li>
+<a href="#19">PR10</a>
+</li>
+<li>
+<a href="#24">Apendice</a>
+</li>
+<li>
+<a href="#29">Conclusion</a>
+</li>
+<li>
+<a href="#30">Referencias</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Integrantes</h2>
+<div>
+<ul>
+<li>Dorantes Ochoa Daniel</li>
+<li>Ruiz Guadarrama Juan Carlos</li>
+<li>Santos Garrido Diana Karen</li>
+<li>Lopez Solano Irvin</li>
+</ul>
+</div>
+<h2 id="2">Objetivos de la Practica:</h2>
+<div>
+<ul>
+<li>Realizar gr&aacute;ficas de series de Fourier exponenciales y trigonom&eacute;tricas en tiempo continuo</li>
+<li>Manipulaci&oacute;n de instrucciones en MATLAB</li>
+</ul>
+</div>
+<h2 id="3">Introduccion</h2>
+<p>A lo largo del curso, hemos aprendido sobre el uso de las series de fourier y se podria decir que es una representacion casi exacta o exacta de una funcion de una se&ntilde;al, y podria ser exacta siempre y cuando la serie tienda al infinito y el rango de error llegue a cero, por lo que es casi imposible demostrarlo en cualquier programa, sin embargo, en esta practica haremos una demostracion de como se puede representar una se&ntilde;al, usando series de fourier.</p>
+<h2 id="4">Desarrollo</h2>
+<p>Para el desarrollo se tienen que resolver cada uno de los siguientes problemas comenzando una nueva secci&oacute;n (para la publicaci&oacute;n) en cada uno de ellos.</p>
+<p>Cada problema se realiza para serie trigonom&eacute;trica compacta y exponencial compleja, cada figura debe contener</p>
+<div>
+<ul>
+<li>Gr&aacute;fica de la serie de Fourier en un intervalo que muestre 5 repeticiones</li>
+<li>Gr&aacute;fica de la se&ntilde;al y la serie de Fourier para 15 armonicos</li>
+<li>Gr&aacute;fica del error</li>
+<li>Gr&aacute;fica de la energ&iacute;a del error</li>
+<li>Espectro de magnitud para 15 armonicos</li>
+<li>Espectro de fase para 15 armonicos</li>
+</ul>
+</div>
+<h2 id="6">Ejemplo 6.2</h2>
+<p>Agregar la expresi&oacute;n an&aacute;litica de la serie en ambos formatos. Utilizar A =1.</p>
+<pre class="codeinput">clear <span class="string">vars</span>
+syms <span class="string">n</span> <span class="string">t</span>
+PI = sym(pi);
+assume(n,[<span class="string">"positive"</span> <span class="string">"integer"</span>]);
+T0 = 2;
+w0 = 2 * pi / T0;
+y1= 2*t;
+y2= 2.*(1-t);
+y1=matlabFunction(y1);
+y2=matlabFunction(y2);
+y1=@(t) y1(t).*(abs(t)&lt;1/2);
+y2=@(t) y2(t).*(t&gt;1/2 &amp; t&lt;3/2);
+f=@(t) y1(t)+y2(t);
+</pre>
+<h2 id="7">Exponencial ejemplo 6.2</h2>
+<pre class="codeinput">dn=(1/T0)*int((2*t)*(exp(-j*n*w0*t)),t,-1/2,1/2) + (1/T0)*int((2-2*t)*(exp(-j*w0*n*t)),t,1/2,3/2);
+dn= simplify(dn,<span class="string">"Steps"</span>,30);
+</pre>
+<pre class="codeinput">d0=3;
+dn= matlabFunction(dn);
+t0=-1/2;
+tf=3/2;
+armo=15;
+a=-8;
+b=8;
+</pre>
+<pre class="codeinput">figure;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+</pre>
+<img vspace="5" hspace="5" src="ASyS_Practica7_01.png" alt=""> <h2 id="10">Ejemplo 6.4</h2>
+<pre>Agregar la expresi&oacute;n an&aacute;litica de la serie en ambos formatos
+Encuentre la serie trigonom&eacute;trica compacta de Fourier para la se&ntilde;al peri&oacute;dica de pulso cuadrado que se muestra en
+Fig. 6.6a y dibuje su espectro de Fourier.</pre>
+<pre class="codeinput">clear <span class="string">vars</span>
+syms <span class="string">t</span> <span class="string">n</span>
+x1= heaviside(t+pi/2)-heaviside(t-pi/2);
+f=matlabFunction(x1);
+T0=2*pi;
+W0=1;
+</pre>
+<h2 id="11">Exponencial ejemplo 6.4</h2>
+<pre class="codeinput">dn=(1/T0)*int(x1*(exp(-j*n*W0*t)),t,-pi/2,pi/2);
+dn= simplify(dn,<span class="string">"Steps"</span>,30);
+</pre>
+<pre class="codeinput">d0=1;
+dn= matlabFunction(dn);
+t0=-pi/2;
+tf=pi/2;
+armo=15;
+a=-12;
+b=12;
+</pre>
+<pre class="codeinput">figure
+sfc2(t0,tf,dn,d0,f,armo,a,b)
+</pre>
+<img vspace="5" hspace="5" src="ASyS_Practica7_03.png" alt=""> <h2 id="14">PR08</h2>
+<p>Agregar la expresi&oacute;n an&aacute;litica de la serie en ambos formatos (hay dos series en esta tarea).</p>
+<h2 id="15">Problema 1</h2>
+<pre class="codeinput">clear <span class="string">vars</span>;
+syms <span class="string">t</span> <span class="string">n</span>;
+f=@(t) t;
+T0=2;
+W0= 2*pi/T0;
+f=@(t) f(t).*(t&gt;-1 &amp; t&lt;1);
+</pre>
+<h2 id="16">Exponencial PR08 Problema 1</h2>
+<pre class="codeinput">dn=(1/T0)*int(t*(exp(-j*n*w0*t)),t,-1,1);
+dn= simplify(dn,<span class="string">"Steps"</span>,10);
+</pre>
+<img vspace="5" hspace="5" src="ASyS_Practica7_04.png" alt=""> <pre class="codeinput">d0=1;
+dn= matlabFunction(dn);
+t0=-1;
+tf=1;
+armo=15;
+a=-12;
+b=12;
+</pre>
+<pre class="codeinput"> figure
+ sfc3(t0,tf,dn,d0,f,armo,a,b)
+</pre>
+<img vspace="5" hspace="5" src="ASyS_Practica7_06.png" alt=""> <h2 id="19">PR10</h2>
+<p>Sea una se ̃nal f(t) de periodo T, su descripci ́on en intervalo (&minus;T /2, T /2) es ae^-a|t| a) Determine el valor de T b) &iquest;Cual es el valor promedio de f(t)? (realice dos procedimientos). El valor promedio de una se&ntilde;al periodica</p>
+<p>Segun nuestras expresiones analiticas, para determinar a T se deben utilizar el uso de las diferentes formulas, es decir, ocupar la formula analitica de la serie de fourier, y ahi mismo nos indica que W0= Pi. Por lo tanto, se define que W0= 2Pi/T0, tomando en cuenta que tenemos el valor de W0, se puede sustituir y despejar, para que nos brinde el valor de "T0", del cual el resultado es T0=2. Asimismo, en el planteamento del problema nos dejan claro que "a" es igual a 2, por lo tanto la expresion seria: 2e^-2|t|.</p>
+<pre class="codeinput">clear <span class="string">vars</span>;
+ syms <span class="string">t</span> <span class="string">n</span>;
+ f=@(t) 2*exp(-2*abs(t));
+ T0=2;
+ W0= pi;
+</pre>
+<pre class="codeinput">dn=(1/T0)*int(2*exp(-2*abs(t))*(exp(-j*n*W0*t)),t,-1,1);
+dn= simplify(dn,<span class="string">"Steps"</span>,30);
+</pre>
+<pre class="codeinput">d0=2;
+dn= matlabFunction(dn);
+t0=-2;
+tf=2;
+armo=4;
+a=-12;
+b=12;
+</pre>
+<img vspace="5" hspace="5" src="ASyS_Practica7_07.png" alt=""> <pre class="codeinput">figure
+sfc4(t0,tf,dn,d0,f,armo,a,b)
+</pre>
+<h2 id="24">Apendice</h2>
+<pre class="codeinput">
+<span class="keyword">function</span> sfc(t0,tf,dn,d0,f,armo,a,b)
+<span class="comment">% t0 el valor inicial para calcular la serie</span>
+<span class="comment">% tf el valor final donde calcular la serie</span>
+<span class="comment">% dn funci&oacute;n de la f&oacute;rmula de los dn</span>
+<span class="comment">% f funci&oacute;n original</span>
+<span class="comment">% armo n&uacute;mero de armonicos a utilizar en la gr&aacute;fica</span>
+<span class="comment">% a, b intevalo para realizar la grafica de la serie</span>
+
+w0=2*pi/(tf-t0);
+
+sf=d0;
+t=a:0.0001:b;
+
+<span class="keyword">for</span> n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t*j)+dn(n)*exp(w0*n*t*j);
+<span class="keyword">end</span>
+figure (1)
+hFig = figure(1);
+set(hFig, <span class="string">'Position'</span>, [0 0 900 900])
+subplot(3,2,1)
+plot(t,sf,<span class="string">'LineWidth'</span>,2)
+grid <span class="string">on</span>
+legend(<span class="string">'Serie de Fourier'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+
+sf=d0;
+t1=t0:0.0001:tf;
+
+<span class="keyword">for</span> n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t1*j)+dn(n)*exp(w0*n*t1*j);
+<span class="keyword">end</span>
+
+subplot(3,2,2)
+plot(t1,f(t1),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+grid <span class="string">on</span>
+hold <span class="string">on</span>
+plot(t1,sf,<span class="string">'LineWidth'</span>,2)
+legend(<span class="string">'Funci&oacute;n original'</span>,<span class="string">'Serie de Fourier '</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+nn=-armo:armo;
+axis <span class="string">auto</span>
+
+subplot(3,2,4)
+e=f(t1)-sf;
+plot(t1,e,<span class="string">'LineWidth'</span>,2)
+title(<span class="string">'Error'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+axis <span class="string">auto</span>
+grid <span class="string">on</span>
+
+subplot(3,2,6)
+e=f(t1)-sf;
+area(t1,e.^2)
+legend(<span class="string">'Energia del error'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+axis <span class="string">auto</span>
+grid <span class="string">on</span>
+
+absdn=zeros(1,length(nn));
+cont=1;
+<span class="keyword">for</span> i =-armo:armo
+    <span class="keyword">if</span> i==0
+        absdn(cont)=d0;
+    <span class="keyword">end</span>
+
+    absdn(cont)=dn(i);
+    cont=cont+1;
+<span class="keyword">end</span>
+
+subplot(3,2,3)
+stem(w0*nn,abs(absdn),<span class="string">'LineWidth'</span>,2)
+title(<span class="string">'Espectro de magnitud D_n '</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+xlabel(<span class="string">'\omega'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+
+subplot(3,2,5) <span class="comment">% %</span>
+stem(w0*nn,angle(absdn),<span class="string">'LineWidth'</span>,2) <span class="comment">% %</span>
+title(<span class="string">'Espectro de fase, \angle de D_n '</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16) <span class="comment">% %</span>
+xlabel(<span class="string">'\omega'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+
+<span class="keyword">end</span>
+</pre>
+<img vspace="5" hspace="5" src="ASyS_Practica7_02.png" alt=""> <pre class="codeinput">
+<span class="keyword">function</span> sfc2(t0,tf,dn,d0,f,armo,a,b)
+<span class="comment">% t0 el valor inicial para calcular la serie</span>
+<span class="comment">% tf el valor final donde calcular la serie</span>
+<span class="comment">% dn funci&oacute;n de la f&oacute;rmula de los dn</span>
+<span class="comment">% f funci&oacute;n original</span>
+<span class="comment">% armo n&uacute;mero de armonicos a utilizar en la gr&aacute;fica</span>
+<span class="comment">% a, b intevalo para realizar la grafica de la serie</span>
+
+w0=2*pi/(tf-t0);
+
+sf=d0;
+t=a:0.0001:b;
+
+<span class="keyword">for</span> n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t*j)+dn(n)*exp(w0*n*t*j);
+<span class="keyword">end</span>
+figure (1)
+hFig = figure(1);
+set(hFig, <span class="string">'Position'</span>, [0 0 900 900])
+subplot(3,2,1)
+plot(t,sf,<span class="string">'LineWidth'</span>,2)
+grid <span class="string">on</span>
+legend(<span class="string">'Serie de Fourier'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+
+sf=d0;
+t1=t0:0.0001:tf;
+
+<span class="keyword">for</span> n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t1*j)+dn(n)*exp(w0*n*t1*j);
+<span class="keyword">end</span>
+
+subplot(3,2,2)
+plot(t1,f(t1),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+grid <span class="string">on</span>
+hold <span class="string">on</span>
+plot(t1,sf,<span class="string">'LineWidth'</span>,2)
+legend(<span class="string">'Funci&oacute;n original'</span>,<span class="string">'Serie de Fourier '</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+nn=-armo:armo;
+axis <span class="string">auto</span>
+
+subplot(3,2,4)
+e=f(t1)-sf;
+plot(t1,e,<span class="string">'LineWidth'</span>,2)
+title(<span class="string">'Error'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+axis <span class="string">auto</span>
+grid <span class="string">on</span>
+
+subplot(3,2,6)
+e=f(t1)-sf;
+area(t1,e.^2)
+legend(<span class="string">'Energia del error'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+axis <span class="string">auto</span>
+grid <span class="string">on</span>
+
+absdn=zeros(1,length(nn));
+cont=1;
+<span class="keyword">for</span> i =-armo:armo
+    <span class="keyword">if</span> i==0
+        absdn(cont)=d0;
+    <span class="keyword">end</span>
+
+    absdn(cont)=dn(i);
+    cont=cont+1;
+<span class="keyword">end</span>
+
+subplot(3,2,3)
+stem(w0*nn,abs(absdn),<span class="string">'LineWidth'</span>,2)
+title(<span class="string">'Espectro de magnitud D_n '</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+xlabel(<span class="string">'\omega'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+
+subplot(3,2,5) <span class="comment">% %</span>
+stem(w0*nn,angle(absdn),<span class="string">'LineWidth'</span>,2) <span class="comment">% %</span>
+title(<span class="string">'Espectro de fase, \angle de D_n '</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16) <span class="comment">% %</span>
+xlabel(<span class="string">'\omega'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+
+<span class="keyword">end</span>
+</pre>
+<img vspace="5" hspace="5" src="ASyS_Practica7_05.png" alt=""> <pre class="codeinput">
+<span class="keyword">function</span> sfc3(t0,tf,dn,d0,f,armo,a,b)
+<span class="comment">% t0 el valor inicial para calcular la serie</span>
+<span class="comment">% tf el valor final donde calcular la serie</span>
+<span class="comment">% dn funci&oacute;n de la f&oacute;rmula de los dn</span>
+<span class="comment">% f funci&oacute;n original</span>
+<span class="comment">% armo n&uacute;mero de armonicos a utilizar en la gr&aacute;fica</span>
+<span class="comment">% a, b intevalo para realizar la grafica de la serie</span>
+
+w0=2*pi/(tf-t0);
+
+sf=d0;
+t=a:0.0001:b;
+
+<span class="keyword">for</span> n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t*j)+dn(n)*exp(w0*n*t*j);
+<span class="keyword">end</span>
+figure (1)
+hFig = figure(1);
+set(hFig, <span class="string">'Position'</span>, [0 0 900 900])
+subplot(3,2,1)
+plot(t,sf,<span class="string">'LineWidth'</span>,2)
+grid <span class="string">on</span>
+legend(<span class="string">'Serie de Fourier'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+
+sf=d0;
+t1=t0:0.0001:tf;
+
+<span class="keyword">for</span> n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t1*j)+dn(n)*exp(w0*n*t1*j);
+<span class="keyword">end</span>
+
+subplot(3,2,2)
+plot(t1,f(t1),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+grid <span class="string">on</span>
+hold <span class="string">on</span>
+plot(t1,sf,<span class="string">'LineWidth'</span>,2)
+legend(<span class="string">'Funci&oacute;n original'</span>,<span class="string">'Serie de Fourier '</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+nn=-armo:armo;
+axis <span class="string">auto</span>
+
+subplot(3,2,4)
+e=f(t1)-sf;
+plot(t1,e,<span class="string">'LineWidth'</span>,2)
+title(<span class="string">'Error'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+axis <span class="string">auto</span>
+grid <span class="string">on</span>
+
+subplot(3,2,6)
+e=f(t1)-sf;
+area(t1,e.^2)
+legend(<span class="string">'Energia del error'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+axis <span class="string">auto</span>
+grid <span class="string">on</span>
+
+absdn=zeros(1,length(nn));
+cont=1;
+<span class="keyword">for</span> i =-armo:armo
+    <span class="keyword">if</span> i==0
+        absdn(cont)=d0;
+    <span class="keyword">end</span>
+
+    absdn(cont)=dn(i);
+    cont=cont+1;
+<span class="keyword">end</span>
+
+subplot(3,2,3)
+stem(w0*nn,abs(absdn),<span class="string">'LineWidth'</span>,2)
+title(<span class="string">'Espectro de magnitud D_n '</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+xlabel(<span class="string">'\omega'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+
+subplot(3,2,5) <span class="comment">% %</span>
+stem(w0*nn,angle(absdn),<span class="string">'LineWidth'</span>,2) <span class="comment">% %</span>
+title(<span class="string">'Espectro de fase, \angle de D_n '</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16) <span class="comment">% %</span>
+xlabel(<span class="string">'\omega'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+
+<span class="keyword">end</span>
+</pre>
+<img vspace="5" hspace="5" src="ASyS_Practica7_08.png" alt=""> <pre class="codeinput">
+<span class="keyword">function</span> sfc4(t0,tf,dn,d0,f,armo,a,b)
+<span class="comment">% t0 el valor inicial para calcular la serie</span>
+<span class="comment">% tf el valor final donde calcular la serie</span>
+<span class="comment">% dn funci&oacute;n de la f&oacute;rmula de los dn</span>
+<span class="comment">% f funci&oacute;n original</span>
+<span class="comment">% armo n&uacute;mero de armonicos a utilizar en la gr&aacute;fica</span>
+<span class="comment">% a, b intevalo para realizar la grafica de la serie</span>
+
+w0=2*pi/(tf-t0);
+
+sf=d0;
+t=a:0.0001:b;
+
+<span class="keyword">for</span> n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t*j)+dn(n)*exp(w0*n*t*j);
+<span class="keyword">end</span>
+figure (1)
+hFig = figure(1);
+set(hFig, <span class="string">'Position'</span>, [0 0 900 900])
+subplot(3,2,1)
+plot(t,sf,<span class="string">'LineWidth'</span>,2)
+grid <span class="string">on</span>
+legend(<span class="string">'Serie de Fourier'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+
+sf=d0;
+t1=t0:0.0001:tf;
+
+<span class="keyword">for</span> n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t1*j)+dn(n)*exp(w0*n*t1*j);
+<span class="keyword">end</span>
+
+subplot(3,2,2)
+plot(t1,f(t1),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+grid <span class="string">on</span>
+hold <span class="string">on</span>
+plot(t1,sf,<span class="string">'LineWidth'</span>,2)
+legend(<span class="string">'Funci&oacute;n original'</span>,<span class="string">'Serie de Fourier '</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+nn=-armo:armo;
+axis <span class="string">auto</span>
+
+subplot(3,2,4)
+e=f(t1)-sf;
+plot(t1,e,<span class="string">'LineWidth'</span>,2)
+title(<span class="string">'Error'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+axis <span class="string">auto</span>
+grid <span class="string">on</span>
+
+subplot(3,2,6)
+e=f(t1)-sf;
+area(t1,e.^2)
+legend(<span class="string">'Energia del error'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+axis <span class="string">auto</span>
+grid <span class="string">on</span>
+
+absdn=zeros(1,length(nn));
+cont=1;
+<span class="keyword">for</span> i =-armo:armo
+    <span class="keyword">if</span> i==0
+        absdn(cont)=d0;
+    <span class="keyword">end</span>
+
+    absdn(cont)=dn(i);
+    cont=cont+1;
+<span class="keyword">end</span>
+
+subplot(3,2,3)
+stem(w0*nn,abs(absdn),<span class="string">'LineWidth'</span>,2)
+title(<span class="string">'Espectro de magnitud D_n '</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+xlabel(<span class="string">'\omega'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+
+subplot(3,2,5) <span class="comment">% %</span>
+stem(w0*nn,angle(absdn),<span class="string">'LineWidth'</span>,2) <span class="comment">% %</span>
+title(<span class="string">'Espectro de fase, \angle de D_n '</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16) <span class="comment">% %</span>
+xlabel(<span class="string">'\omega'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+
+<span class="keyword">end</span>
+</pre>
+<img vspace="5" hspace="5" src="ASyS_Practica7_09.png" alt=""> <h2 id="29">Conclusion</h2>
+<p>En conclusion podemos decir, que el uso de herramientas tan multifuncionales como lo es MATLAB, es muy importante, pues gracias al manejo de funciones, como de codigos necesarios, podemos expresar y simplificar, problemas tan complejos, asi mismo nos permiten dar una representacion a (en este caso) se&ntilde;ales complejas u ordinarias. En cuanto a el uso de este programa con el tema de Series de Fourier, es de vital importancias, pues se adecuan de una manera facil y sencilla, por otro lado gracias a la funcion que nos proporciono el Dr. Martinez Martinez Rafael nos da pauta a la creacion de esta practica.</p>
+<h2 id="30">Referencias</h2>
+<p>Funcion scf, Proporcionada por el Dr. Martinez Martinez Rafael.</p>
+<p>Funciones scf2-4 Inspirados por el canal Mate y Asi.</p>
+<p>B. P. Lathi (2018).LINEAR SYSTEMS AND SIGNALS,THIRD EDITION. OXFORD UNIVERSITY PRESS</p>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Practica 7: Series de Fourier en tiempo continuo
+%
+%% Integrantes
+% * Dorantes Ochoa Daniel
+% * Ruiz Guadarrama Juan Carlos
+% * Santos Garrido Diana Karen
+% * Lopez Solano Irvin
+%% Objetivos de la Practica:
+% * Realizar gráficas de series de Fourier exponenciales y trigonométricas en tiempo continuo
+% * Manipulación de instrucciones en MATLAB
+%% Introduccion
+% A lo largo del curso, hemos aprendido sobre el uso de las series de
+% fourier y se podria decir que es una representacion casi exacta o exacta
+% de una funcion de una señal, y podria ser exacta siempre y cuando la
+% serie tienda al infinito y el rango de error llegue a cero, por lo que es
+% casi imposible demostrarlo en cualquier programa, sin embargo, en esta
+% practica haremos una demostracion de como se puede representar una señal,
+% usando series de fourier.
+%% Desarrollo
+% Para el desarrollo se tienen que resolver cada uno de los siguientes problemas comenzando una nueva sección (para la publicación) en cada uno de ellos.
+% 
+% Cada problema se realiza para serie trigonométrica compacta y exponencial compleja, cada figura debe contener
+%% 
+% * Gráfica de la serie de Fourier en un intervalo que muestre 5 repeticiones
+% * Gráfica de la señal y la serie de Fourier para 15 armonicos
+% * Gráfica del error
+% * Gráfica de la energía del error
+% * Espectro de magnitud para 15 armonicos
+% * Espectro de fase para 15 armonicos
+%% Ejemplo 6.2
+% Agregar la expresión análitica de la serie en ambos formatos. Utilizar A =1.
+clear vars
+syms n t 
+PI = sym(pi);
+assume(n,["positive" "integer"]);
+T0 = 2;
+w0 = 2 * pi / T0;
+y1= 2*t;
+y2= 2.*(1-t);
+y1=matlabFunction(y1);
+y2=matlabFunction(y2);
+y1=@(t) y1(t).*(abs(t)<1/2);
+y2=@(t) y2(t).*(t>1/2 & t<3/2);
+f=@(t) y1(t)+y2(t);
+%% Exponencial ejemplo 6.2
+dn=(1/T0)*int((2*t)*(exp(-j*n*w0*t)),t,-1/2,1/2) + (1/T0)*int((2-2*t)*(exp(-j*w0*n*t)),t,1/2,3/2);
+dn= simplify(dn,"Steps",30);
+%%
+d0=3;
+dn= matlabFunction(dn);
+t0=-1/2;
+tf=3/2;
+armo=15;
+a=-8;
+b=8;
+%% 
+figure;
+sfc(t0,tf,dn,d0,f,armo,a,b)
+%%  Ejemplo 6.4
+%  Agregar la expresión análitica de la serie en ambos formatos
+% Encuentre la serie trigonométrica compacta de Fourier para la señal periódica de pulso cuadrado que se muestra en
+% Fig. 6.6a y dibuje su espectro de Fourier.
+clear vars
+syms t n
+x1= heaviside(t+pi/2)-heaviside(t-pi/2);
+f=matlabFunction(x1);
+T0=2*pi;
+W0=1;
+
+%% Exponencial ejemplo 6.4
+dn=(1/T0)*int(x1*(exp(-j*n*W0*t)),t,-pi/2,pi/2);
+dn= simplify(dn,"Steps",30);
+%%
+d0=1;
+dn= matlabFunction(dn);
+t0=-pi/2;
+tf=pi/2;
+armo=15;
+a=-12;
+b=12;
+%% 
+figure
+sfc2(t0,tf,dn,d0,f,armo,a,b)
+%% PR08
+% Agregar la expresión análitica de la serie en ambos formatos (hay dos series en esta tarea).
+%% Problema 1
+clear vars;
+syms t n;
+f=@(t) t;
+T0=2;
+W0= 2*pi/T0;
+f=@(t) f(t).*(t>-1 & t<1);
+%% Exponencial PR08 Problema 1
+dn=(1/T0)*int(t*(exp(-j*n*w0*t)),t,-1,1);
+dn= simplify(dn,"Steps",10);
+%%
+d0=1;
+dn= matlabFunction(dn);
+t0=-1;
+tf=1;
+armo=15;
+a=-12;
+b=12;
+%% 
+ figure
+ sfc3(t0,tf,dn,d0,f,armo,a,b)
+%% PR10 
+% Sea una se ̃nal f(t) de periodo T, su descripci ́on
+% en intervalo (−T /2, T /2) es
+% ae^-a|t|
+% a) Determine el valor de T
+% b) ¿Cual es el valor promedio de f(t)?
+% (realice dos procedimientos). El valor
+% promedio de una señal periodica
+% 
+% Segun nuestras expresiones analiticas, para determinar a T se deben
+% utilizar el uso de las diferentes formulas, es decir, ocupar la formula
+% analitica de la serie de fourier, y ahi mismo nos indica que W0= Pi.
+% Por lo tanto, se define que W0= 2Pi/T0, tomando en cuenta que tenemos el
+% valor de W0, se puede sustituir y despejar, para que nos brinde el valor
+% de "T0", del cual el resultado es T0=2.
+% Asimismo, en el planteamento del problema nos dejan claro que "a" es
+% igual a 2, por lo tanto la expresion seria: 2e^-2|t|.
+%% 
+clear vars;
+ syms t n;
+ f=@(t) 2*exp(-2*abs(t));
+ T0=2;
+ W0= pi;
+%% 
+dn=(1/T0)*int(2*exp(-2*abs(t))*(exp(-j*n*W0*t)),t,-1,1);
+dn= simplify(dn,"Steps",30);
+%%
+d0=2;
+dn= matlabFunction(dn);
+t0=-2;
+tf=2;
+armo=4;
+a=-12;
+b=12;
+%% 
+figure
+sfc4(t0,tf,dn,d0,f,armo,a,b)
+
+
+%% Apendice
+%%
+
+function sfc(t0,tf,dn,d0,f,armo,a,b)
+% t0 el valor inicial para calcular la serie
+% tf el valor final donde calcular la serie
+% dn función de la fórmula de los dn
+% f función original
+% armo número de armonicos a utilizar en la gráfica
+% a, b intevalo para realizar la grafica de la serie
+
+w0=2*pi/(tf-t0);
+
+sf=d0;
+t=a:0.0001:b;
+
+for n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t*j)+dn(n)*exp(w0*n*t*j);
+end
+figure (1)
+hFig = figure(1);
+set(hFig, 'Position', [0 0 900 900])
+subplot(3,2,1)
+plot(t,sf,'LineWidth',2)
+grid on
+legend('Serie de Fourier','Location','Best')
+xlabel('t','FontWeight','bold','FontSize',16)
+
+sf=d0;
+t1=t0:0.0001:tf;
+
+for n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t1*j)+dn(n)*exp(w0*n*t1*j);
+end
+
+subplot(3,2,2)
+plot(t1,f(t1),'r','LineWidth',2)
+grid on
+hold on
+plot(t1,sf,'LineWidth',2)
+legend('Función original','Serie de Fourier ','Location','Best')
+xlabel('t','FontWeight','bold','FontSize',16)
+nn=-armo:armo;
+axis auto
+
+subplot(3,2,4)
+e=f(t1)-sf;
+plot(t1,e,'LineWidth',2)
+title('Error','FontWeight','bold','FontSize',16)
+xlabel('t','FontWeight','bold','FontSize',16)
+axis auto
+grid on
+
+subplot(3,2,6)
+e=f(t1)-sf;
+area(t1,e.^2)
+legend('Energia del error','Location','Best')
+xlabel('t','FontWeight','bold','FontSize',16)
+axis auto
+grid on
+
+absdn=zeros(1,length(nn));
+cont=1;
+for i =-armo:armo
+    if i==0
+        absdn(cont)=d0;
+    end
+    
+    absdn(cont)=dn(i);
+    cont=cont+1;
+end
+
+subplot(3,2,3)
+stem(w0*nn,abs(absdn),'LineWidth',2)
+title('Espectro de magnitud D_n ','FontWeight','bold','FontSize',16)
+xlabel('\omega','FontWeight','bold','FontSize',16)
+grid on
+
+subplot(3,2,5) % % 
+stem(w0*nn,angle(absdn),'LineWidth',2) % % 
+title('Espectro de fase, \angle de D_n ','FontWeight','bold','FontSize',16) % % 
+xlabel('\omega','FontWeight','bold','FontSize',16)
+grid on
+
+end
+%%
+
+function sfc2(t0,tf,dn,d0,f,armo,a,b)
+% t0 el valor inicial para calcular la serie
+% tf el valor final donde calcular la serie
+% dn función de la fórmula de los dn
+% f función original
+% armo número de armonicos a utilizar en la gráfica
+% a, b intevalo para realizar la grafica de la serie
+
+w0=2*pi/(tf-t0);
+
+sf=d0;
+t=a:0.0001:b;
+
+for n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t*j)+dn(n)*exp(w0*n*t*j);
+end
+figure (1)
+hFig = figure(1);
+set(hFig, 'Position', [0 0 900 900])
+subplot(3,2,1)
+plot(t,sf,'LineWidth',2)
+grid on
+legend('Serie de Fourier','Location','Best')
+xlabel('t','FontWeight','bold','FontSize',16)
+
+sf=d0;
+t1=t0:0.0001:tf;
+
+for n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t1*j)+dn(n)*exp(w0*n*t1*j);
+end
+
+subplot(3,2,2)
+plot(t1,f(t1),'r','LineWidth',2)
+grid on
+hold on
+plot(t1,sf,'LineWidth',2)
+legend('Función original','Serie de Fourier ','Location','Best')
+xlabel('t','FontWeight','bold','FontSize',16)
+nn=-armo:armo;
+axis auto
+
+subplot(3,2,4)
+e=f(t1)-sf;
+plot(t1,e,'LineWidth',2)
+title('Error','FontWeight','bold','FontSize',16)
+xlabel('t','FontWeight','bold','FontSize',16)
+axis auto
+grid on
+
+subplot(3,2,6)
+e=f(t1)-sf;
+area(t1,e.^2)
+legend('Energia del error','Location','Best')
+xlabel('t','FontWeight','bold','FontSize',16)
+axis auto
+grid on
+
+absdn=zeros(1,length(nn));
+cont=1;
+for i =-armo:armo
+    if i==0
+        absdn(cont)=d0;
+    end
+    
+    absdn(cont)=dn(i);
+    cont=cont+1;
+end
+
+subplot(3,2,3)
+stem(w0*nn,abs(absdn),'LineWidth',2)
+title('Espectro de magnitud D_n ','FontWeight','bold','FontSize',16)
+xlabel('\omega','FontWeight','bold','FontSize',16)
+grid on
+
+subplot(3,2,5) % % 
+stem(w0*nn,angle(absdn),'LineWidth',2) % % 
+title('Espectro de fase, \angle de D_n ','FontWeight','bold','FontSize',16) % % 
+xlabel('\omega','FontWeight','bold','FontSize',16)
+grid on
+
+end
+%%
+
+function sfc3(t0,tf,dn,d0,f,armo,a,b)
+% t0 el valor inicial para calcular la serie
+% tf el valor final donde calcular la serie
+% dn función de la fórmula de los dn
+% f función original
+% armo número de armonicos a utilizar en la gráfica
+% a, b intevalo para realizar la grafica de la serie
+
+w0=2*pi/(tf-t0);
+
+sf=d0;
+t=a:0.0001:b;
+
+for n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t*j)+dn(n)*exp(w0*n*t*j);
+end
+figure (1)
+hFig = figure(1);
+set(hFig, 'Position', [0 0 900 900])
+subplot(3,2,1)
+plot(t,sf,'LineWidth',2)
+grid on
+legend('Serie de Fourier','Location','Best')
+xlabel('t','FontWeight','bold','FontSize',16)
+
+sf=d0;
+t1=t0:0.0001:tf;
+
+for n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t1*j)+dn(n)*exp(w0*n*t1*j);
+end
+
+subplot(3,2,2)
+plot(t1,f(t1),'r','LineWidth',2)
+grid on
+hold on
+plot(t1,sf,'LineWidth',2)
+legend('Función original','Serie de Fourier ','Location','Best')
+xlabel('t','FontWeight','bold','FontSize',16)
+nn=-armo:armo;
+axis auto
+
+subplot(3,2,4)
+e=f(t1)-sf;
+plot(t1,e,'LineWidth',2)
+title('Error','FontWeight','bold','FontSize',16)
+xlabel('t','FontWeight','bold','FontSize',16)
+axis auto
+grid on
+
+subplot(3,2,6)
+e=f(t1)-sf;
+area(t1,e.^2)
+legend('Energia del error','Location','Best')
+xlabel('t','FontWeight','bold','FontSize',16)
+axis auto
+grid on
+
+absdn=zeros(1,length(nn));
+cont=1;
+for i =-armo:armo
+    if i==0
+        absdn(cont)=d0;
+    end
+    
+    absdn(cont)=dn(i);
+    cont=cont+1;
+end
+
+subplot(3,2,3)
+stem(w0*nn,abs(absdn),'LineWidth',2)
+title('Espectro de magnitud D_n ','FontWeight','bold','FontSize',16)
+xlabel('\omega','FontWeight','bold','FontSize',16)
+grid on
+
+subplot(3,2,5) % % 
+stem(w0*nn,angle(absdn),'LineWidth',2) % % 
+title('Espectro de fase, \angle de D_n ','FontWeight','bold','FontSize',16) % % 
+xlabel('\omega','FontWeight','bold','FontSize',16)
+grid on
+
+end
+%%
+
+function sfc4(t0,tf,dn,d0,f,armo,a,b)
+% t0 el valor inicial para calcular la serie
+% tf el valor final donde calcular la serie
+% dn función de la fórmula de los dn
+% f función original
+% armo número de armonicos a utilizar en la gráfica
+% a, b intevalo para realizar la grafica de la serie
+
+w0=2*pi/(tf-t0);
+
+sf=d0;
+t=a:0.0001:b;
+
+for n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t*j)+dn(n)*exp(w0*n*t*j);
+end
+figure (1)
+hFig = figure(1);
+set(hFig, 'Position', [0 0 900 900])
+subplot(3,2,1)
+plot(t,sf,'LineWidth',2)
+grid on
+legend('Serie de Fourier','Location','Best')
+xlabel('t','FontWeight','bold','FontSize',16)
+
+sf=d0;
+t1=t0:0.0001:tf;
+
+for n=1:armo
+    sf=sf+dn(-n)*exp(w0*-n*t1*j)+dn(n)*exp(w0*n*t1*j);
+end
+
+subplot(3,2,2)
+plot(t1,f(t1),'r','LineWidth',2)
+grid on
+hold on
+plot(t1,sf,'LineWidth',2)
+legend('Función original','Serie de Fourier ','Location','Best')
+xlabel('t','FontWeight','bold','FontSize',16)
+nn=-armo:armo;
+axis auto
+
+subplot(3,2,4)
+e=f(t1)-sf;
+plot(t1,e,'LineWidth',2)
+title('Error','FontWeight','bold','FontSize',16)
+xlabel('t','FontWeight','bold','FontSize',16)
+axis auto
+grid on
+
+subplot(3,2,6)
+e=f(t1)-sf;
+area(t1,e.^2)
+legend('Energia del error','Location','Best')
+xlabel('t','FontWeight','bold','FontSize',16)
+axis auto
+grid on
+
+absdn=zeros(1,length(nn));
+cont=1;
+for i =-armo:armo
+    if i==0
+        absdn(cont)=d0;
+    end
+    
+    absdn(cont)=dn(i);
+    cont=cont+1;
+end
+
+subplot(3,2,3)
+stem(w0*nn,abs(absdn),'LineWidth',2)
+title('Espectro de magnitud D_n ','FontWeight','bold','FontSize',16)
+xlabel('\omega','FontWeight','bold','FontSize',16)
+grid on
+
+subplot(3,2,5) % % 
+stem(w0*nn,angle(absdn),'LineWidth',2) % % 
+title('Espectro de fase, \angle de D_n ','FontWeight','bold','FontSize',16) % % 
+xlabel('\omega','FontWeight','bold','FontSize',16)
+grid on
+
+end
+%% Conclusion
+% En conclusion podemos decir, que el uso de herramientas tan
+% multifuncionales como lo es MATLAB, es muy importante, pues gracias al
+% manejo de funciones, como de codigos necesarios, podemos expresar y
+% simplificar, problemas tan complejos, asi mismo nos permiten dar una
+% representacion a (en este caso) señales complejas u ordinarias.
+% En cuanto a el uso de este programa con el tema de Series de Fourier, es
+% de vital importancias, pues se adecuan de una manera facil y sencilla,
+% por otro lado gracias a la funcion que nos proporciono el Dr. Martinez
+% Martinez Rafael nos da pauta a la creacion de esta practica.
+%% Referencias
+% Funcion scf, Proporcionada por el Dr. Martinez Martinez Rafael.
+% 
+% Funciones scf2-4 Inspirados por el canal Mate y Asi.
+% 
+% B. P. Lathi (2018).LINEAR SYSTEMS AND SIGNALS,THIRD EDITION.
+% OXFORD UNIVERSITY PRESS
+##### SOURCE END #####
+-->
+</body>
+</html>

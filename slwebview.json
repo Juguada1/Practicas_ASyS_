@@ -1,0 +1,26 @@
+{
+ "version":3,
+ "baseUrl":"support/slwebview_files",
+ "homeHid":1,
+ "sections":[
+  {
+   "hid":1,
+   "sid":"ASySPrac11IrvinLopezSimulink",
+   "name":"ASySPrac11IrvinLopezSimulink",
+   "fullname":"ASySPrac11IrvinLopezSimulink",
+   "label":"ASySPrac11IrvinLopezSimulink",
+   "parent":0,
+   "descendantIDs":[
+   ],
+   "descendantsURL":"support/slwebview_files/ASySPrac11IrvinLopezSimulink_diagrams_1.json",
+   "sysViewURL":"support/slwebview_files/ASySPrac11IrvinLopezSimulink_p.json"
+  }
+ ],
+ "optViews":[
+ ],
+ "display":{
+  "informer":false,
+  "notes":false
+ },
+ "iconsUrl":"support/slwebview_files/icon.css"
+}
